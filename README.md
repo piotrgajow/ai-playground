@@ -15,10 +15,9 @@ Add the plugin marketplace to Claude Code (global):
 
 Install plugins via
 ```
-/plugin install <name>>@piotrgajow [--scope <scope>]
+/plugin install <name>@piotrgajow
 ```
-- `<name>` - name of the plugin
-- `<scope>` - scope of the plugin; `local` only for this project, not committed; `project` - only for this projectm comitted to the repo; `user` - for the user, globally (defualt)
+Select proper scope
 
 ### Using skills
 
