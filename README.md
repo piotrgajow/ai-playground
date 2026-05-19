@@ -44,7 +44,6 @@ To get plugin updates run
 - Add skills to the `piotrgajow-main/skills/` directory
 - Add hooks to the `piotrgajow-main/hooks/hooks.json` file under the relevant event name
 - When referencing files, use `${CLAUDE_PLUGIN_ROOT}` variable to reference the root directory of the plugin
-- Executables can be put into the `bin` directory and called by name (will be available in `$PATH`)
 
 ### Local testing
 

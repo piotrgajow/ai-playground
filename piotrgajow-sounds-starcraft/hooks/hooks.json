@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/startup"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/startup"
           }
         ]
       }
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/attention-needed"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/attention-needed"
           }
         ]
       }
@@ -28,7 +28,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/task-completed"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/task-completed"
           }
         ]
       }
