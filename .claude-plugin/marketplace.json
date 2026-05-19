@@ -1,0 +1,18 @@
+{
+  "name": "piotrgajow",
+  "owner": {
+    "name": "Piotr Gajowniczek"
+  },
+  "plugins": [
+    {
+      "name": "piotrgajow",
+      "source": "./piotrgajow-main",
+      "description": "Personal skills for Claude Code"
+    },
+    {
+      "name": "piotrgajow-sounds-starcraft",
+      "source": "./piotrgajow-sounds-starcraft",
+      "description": "Setup for Claude Code sound notifications based sounds from StarCraft"
+    }
+  ]
+}
