@@ -13,6 +13,11 @@
       "name": "piotrgajow-sounds-starcraft",
       "source": "./piotrgajow-sounds-starcraft",
       "description": "Setup for Claude Code sound notifications based sounds from StarCraft"
+    },
+    {
+      "name": "piotrgajow-wip",
+      "source": "./piotrgajow-wip",
+      "description": "Personal WIP skills for Claude Code"
     }
   ]
 }
