@@ -107,6 +107,7 @@ Before building the plan, scan the returned analysis:
 - Is every correction classified?
 - Do citations look real (plausible paths, line numbers in range)?
 - Is any diagnosis hand-wavy or contradictory?
+- For every covered-* classification, confirm the cited evidence actually addresses the correction's topic — not just an adjacent one. A citation whose subject differs from the correction (e.g. a docs rule cited for a formatting issue) is a misclassification; downgrade it to not-covered.
 
 If something is clearly off, either re-dispatch with a sharper prompt for the specific corrections in question, or read the one or two files directly to verify. Do not silently accept a bad analysis — Phase 4 depends on this being right.
 
