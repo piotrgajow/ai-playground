@@ -6,17 +6,17 @@
   "plugins": [
     {
       "name": "piotrgajow",
-      "source": "./piotrgajow-main",
+      "source": "./plugins/piotrgajow-main",
       "description": "Personal skills for Claude Code"
     },
     {
       "name": "piotrgajow-sounds-starcraft",
-      "source": "./piotrgajow-sounds-starcraft",
+      "source": "./plugins/piotrgajow-sounds-starcraft",
       "description": "Setup for Claude Code sound notifications based sounds from StarCraft"
     },
     {
       "name": "piotrgajow-wip",
-      "source": "./piotrgajow-wip",
+      "source": "./plugins/piotrgajow-wip",
       "description": "Personal WIP skills for Claude Code"
     }
   ]
