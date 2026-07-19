@@ -1,8 +1,26 @@
-# Instructions: generate character voice lines for Claude Code sound notifications
+---
+name: generate-voice-lines
+description: >
+  Generate character voice lines for Claude Code sound notifications. Takes a
+  character description (name, game, links to pages with their actual voice
+  lines) as input, researches the real lines, and produces short spoken
+  notification lines in the character's voice, one set per Claude Code event.
+argument-hint: [character name, game, and links to voice line pages]
+disable-model-invocation: true
+allowed-tools: WebFetch, Write
+---
 
-You will be given a **character** (name, game, and links to pages listing their actual voice lines) at the end of these instructions. Your task is to produce short spoken notification lines in that character's voice, one set per Claude Code event listed below.
+## Task
+
+Produce short spoken notification lines in the voice of the character described in the input, one set per Claude Code event listed below.
 
 The lines will be turned into audio clips and played automatically while a developer works, so they will be heard hundreds of times. They must be short, natural when spoken aloud, and varied enough not to get annoying.
+
+The character (name, game, and links to pages listing their actual voice lines) is given in the input:
+
+> $ARGUMENTS
+
+If the input is missing the character name or the links, ask for them before proceeding.
 
 ## Step 1 — Research the character
 
@@ -44,9 +62,9 @@ Constraints for every line:
 | **StopFailure**       | Claude finished, but the task failed or ended with errors.                                                                  | Reporting failure or trouble — disappointment, dry criticism, or alarm, whatever fits the character. | 3     |
 | **SessionEnd**        | The session is closing.                                                                                                     | Sign-off, shutdown, farewell.                                                                        | 2     |
 
-## Output format
+## Step 3 — Present for approval
 
-Return **only** the following, grouped per event, in the table's order:
+Show the user **only** the generated lines, grouped per event, in the table's order:
 
 ```
 ## <Event name>
@@ -55,10 +73,10 @@ Return **only** the following, grouped per event, in the table's order:
 ...
 ```
 
-No commentary, no explanation of choices, no style profile in the output — just the six groups of tagged lines.
+No commentary, no explanation of choices, no style profile in the output — just the groups of tagged lines.
 
----
+Then ask the user whether the lines are approved. If they request changes, revise the affected lines and present the full set again for another round of approval. Repeat until approved.
 
-## Character
+## Step 4 — Save
 
-<character description and links go here>
+Once approved, ask the user which directory to save to (suggest a sensible default if the character clearly belongs to an existing project directory). Save the approved lines, in the exact format shown above, to `lines.md` in that directory.
