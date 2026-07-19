@@ -7,7 +7,7 @@ description: >
   notification lines in the character's voice, one set per Claude Code event.
 argument-hint: [character name, game, and links to voice line pages]
 disable-model-invocation: true
-allowed-tools: WebFetch, Write
+allowed-tools: WebFetch, Write, Bash(curl:*)
 ---
 
 ## Task
