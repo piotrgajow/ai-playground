@@ -11,7 +11,7 @@
 2. [NEW] "A clean slate. Statistically, this is your best-case scenario."
 
 ## PermissionRequest
-1. [REUSED] "Whenever you're ready."
+1. [NEW] "Whenever you're ready."
 2. [NEW] "I need your permission. Federal regulations. I don't like it either."
 3. [NEW] "Awaiting authorization. Science can wait. Apparently."
 4. [NEW] "I could just do it myself. But protocol says you approve first."
@@ -19,7 +19,7 @@
 
 ## Idle
 1. [REUSED] "You don't have to go THAT slowly."
-2. [REUSED] "Take your time, though."
+2. [NEW] "Take your time, though."
 3. [NEW] "Hello? I can hear you not typing."
 
 ## Stop
@@ -36,7 +36,7 @@
 
 ## StopFailure
 1. [REUSED] "Vital testing apparatus destroyed."
-2. [REUSED] "This is your fault. It didn't have to be like this."
+2. [NEW] "This is your fault. It didn't have to be like this."
 3. [NEW] "It failed. I'm making a note here: not a huge success."
 
 ## SessionEnd
