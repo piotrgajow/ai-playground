@@ -1,0 +1,86 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/hello"
+          }
+        ]
+      },
+      {
+        "matcher": "resume",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/resume"
+          }
+        ]
+      },
+      {
+        "matcher": "clear",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/clear"
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "matcher": "permission_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/request"
+          }
+        ]
+      },
+      {
+        "matcher": "idle_prompt",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/idle"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/finished"
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "matcher": "",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/error"
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "matcher": "prompt_input_exit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/goodbye"
+          }
+        ]
+      }
+    ]
+  }
+}
