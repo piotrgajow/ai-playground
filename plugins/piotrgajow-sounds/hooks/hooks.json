@@ -38,15 +38,6 @@
             "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/request"
           }
         ]
-      },
-      {
-        "matcher": "idle_prompt",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/idle"
-          }
-        ]
       }
     ],
     "Stop": [
@@ -77,7 +68,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/play-random-detached.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/goodbye"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/goodbye"
           }
         ]
       }

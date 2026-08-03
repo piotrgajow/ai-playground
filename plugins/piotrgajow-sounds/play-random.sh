@@ -9,4 +9,5 @@ if [[ -z "$random_file" ]]; then
   exit 0
 fi
 
-afplay "$random_file"
+set -m
+nohup afplay "$random_file" </dev/null >/dev/null 2>&1 &
