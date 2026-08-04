@@ -1,44 +1,42 @@
-## SessionStart
-1. [REUSED] "Ah mortal, welcome."
-2. [REUSED] "This sprawling estate, a Mecca of madness and morbidity. Your work begins..."
+## SessionStart (3)
+1. [REUSED] "Ah mortal, welcome." — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+2. [REUSED] "Sharpen your blade, it begins." — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+3. [REUSED] "a Mecca of madness and morbidity. Your work begins..." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
 
-## SessionResume
-1. [REUSED] "Welcome home, such as it is."
-2. [NEW] "You return to your labors. The task remains unfinished."
+## SessionResume (2)
+1. [REUSED] "I have foreseen your return. It is written in constellations forgotten by time." — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+2. [REUSED] "What strange forces have returned you to this terrible field of battle?" — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
 
-## SessionClear
-1. [REUSED] "You cannot learn a thing you think you know..."
-2. [NEW] "Memory fades. Merciful oblivion, at last."
+## SessionClear (5)
+1. [REUSED] "Regroup. Reassemble. Evil is timeless, after all." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+2. [REUSED] "A wise general cuts losses, and regroups." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+3. [REUSED] "More dust, more ashes, more disappointment." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+4. [REUSED] "Was this chaos or incompetence?" — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+5. [REUSED] "Strike another blow! Keep them off balance!" — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
 
-## PermissionRequest
-1. [NEW] "Your command, and it shall be done."
-2. [REUSED] "Let the cold uncertainty of existence guide your hand."
-3. [NEW] "I await your sanction to proceed."
-4. [NEW] "The work halts, pending your word."
-5. [NEW] "Grant your blessing, and the dig continues."
+## PermissionRequest (7)
+1. [REUSED] "By your leave. Be it fate, or fortune." — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+2. [REUSED] "Your turn to pick." — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+3. [REUSED] "Respond without restraint!" — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+4. [REUSED] "It takes great courage, or greater ignorance, to govern the fate of others." — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+5. [REUSED] "Choose wisely." — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+6. [REUSED] "Can one lone fool be trusted with this responsibility?" — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+7. [MODIFIED] "Respond swiftly." — from "Respond swiftly, enact painful vengeance!" (https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June))
 
-## Idle
-1. [REUSED] "In truth I cannot tell how much time has passed since I sent that letter."
-2. [REUSED] "Death is patient, it will wait."
-3. [NEW] "Linger not — there is much yet to be done."
+## Stop (7)
+1. [REUSED] "A trifling victory, but a victory nonetheless." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+2. [REUSED] "Masterfully executed!" — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+3. [REUSED] "A handsome reward for a task well performed." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+4. [REUSED] "A victory - perhaps a turning point." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+5. [REUSED] "Seize this momentum! Push on to the task's end!" — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+6. [REUSED] "This expedition, at least, promises success." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+7. [MODIFIED] "It is done." — from: "It is done. Turn yourself now to the conditions of those poor devils who remain." (https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon))
 
-## Stop
-1. [REUSED] "A handsome reward for a task well performed."
-2. [REUSED] "Well struck!"
-3. [REUSED] "Masterfully executed!"
-4. [REUSED] "This day belongs to the Light!"
-5. [REUSED] "Room by room, hall by hall, we reclaim what is ours."
-6. [REUSED] "A trifling victory, but a victory nonetheless."
-7. [REUSED] "Remind yourself that overconfidence is a slow and insidious killer."
-8. [REUSED] "Success so clearly in view... or is it merely a trick of the light?"
-9. [NEW] "The work is done. Judge it as you will."
-10. [NEW] "Another task concluded, another shadow driven back."
+## StopFailure (2)
+1. [REUSED] "A setback, but not the end of things!" — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+2. [REUSED] "Failure tests the mettle of heart, brain, and body." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
 
-## StopFailure
-1. [REUSED] "A setback, but not the end of things!"
-2. [REUSED] "Regroup. Reassemble. Evil is timeless, after all."
-3. [REUSED] "More dust, more ashes, more disappointment."
-
-## SessionEnd
-1. [REUSED] "And now... the darkness holds dominion – black as death."
-2. [NEW] "Rest now — even the vigilant must sleep."
+## SessionEnd (3)
+1. [REUSED] "The sun has set, as bleak doom stirs between the stars." — https://liquipedia.net/dota2/Darkest_Dungeon_Announcer_Pack_(ft._Wayne_June)
+2. [REUSED] "Ringing ears, blurred vision - the end approaches..." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
+3[REUSED] "And now... the darkness holds dominion – black as death." — https://darkestdungeon.fandom.com/wiki/Narrator_(Darkest_Dungeon)
