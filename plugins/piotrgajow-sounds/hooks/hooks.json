@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/hello"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh hello --select"
           }
         ]
       },
@@ -15,7 +15,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/resume"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh resume"
           }
         ]
       },
@@ -24,7 +24,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/clear"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh clear"
           }
         ]
       }
@@ -35,7 +35,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/request"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh request"
           }
         ]
       }
@@ -46,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/finished"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh finished"
           }
         ]
       }
@@ -57,7 +57,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/error"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh error"
           }
         ]
       }
@@ -68,7 +68,16 @@
         "hooks": [
           {
             "type": "command",
-            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh ${CLAUDE_PLUGIN_ROOT}/_sounds/portal-glados/goodbye"
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh goodbye --release"
+          }
+        ]
+      },
+      {
+        "matcher": "clear|logout|other",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "${CLAUDE_PLUGIN_ROOT}/play-random.sh --release"
           }
         ]
       }
