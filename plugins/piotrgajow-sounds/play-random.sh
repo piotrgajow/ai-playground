@@ -23,7 +23,7 @@ done
 mkdir -p "$STATE_DIR"
 
 session_dir="${CLAUDE_PROJECT_DIR:-$PWD}"
-state_file="$STATE_DIR/$(printf '%s' "$session_dir" | tr '/' '-')"
+state_file="$STATE_DIR/$(printf '%s' "$session_dir" | tr '/' '.')"
 
 select_pack() {
   local all used pool f
