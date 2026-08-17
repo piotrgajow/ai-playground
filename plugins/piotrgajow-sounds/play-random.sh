@@ -5,6 +5,7 @@ set -euo pipefail
 PLUGIN_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 SOUNDS_DIR="$PLUGIN_ROOT/_sounds"
 STATE_DIR="${HOME}/.cache/piotrgajow-sounds/dirs"
+VOLUME_FILE="${HOME}/.cache/piotrgajow-sounds/volume"
 # A state file touched within this window means its voice pack is in use
 ACTIVE_WINDOW_MIN=240
 RELEASED_TIMESTAMP=202001010000
@@ -60,8 +61,13 @@ if [[ -n "$category" ]]; then
   if [[ -d "$sound_dir" ]]; then
     random_file="$(find "$sound_dir" -maxdepth 1 -name '*.mp3' -type f | sort -R | head -n 1)"
     if [[ -n "$random_file" ]]; then
+      volume="$(cat "$VOLUME_FILE" 2>/dev/null || true)"
       set -m
-      nohup afplay "$random_file" </dev/null >/dev/null 2>&1 &
+      if [[ "$volume" =~ ^[0-9]*\.?[0-9]+$ ]]; then
+        nohup afplay -v "$volume" "$random_file" </dev/null >/dev/null 2>&1 &
+      else
+        nohup afplay "$random_file" </dev/null >/dev/null 2>&1 &
+      fi
     fi
   fi
 fi
