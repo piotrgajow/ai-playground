@@ -1,0 +1,114 @@
+---
+name: character-ideas
+description: Brainstorm, shortlist and develop tabletop RPG character concepts from a game system + resources file and adventure context, then save each finished character as a markdown file.
+argument-hint: <system-file> <context-file-or-text>
+disable-model-invocation: true
+allowed-tools: Read, Write, WebFetch, AskUserQuestion
+---
+
+# Character creation
+
+Help the user go from "I need a character" to one or more fully described characters, grounded in the rules of the system they play.
+
+## Inputs
+
+`$ARGUMENTS` should contain:
+
+1. **System file** – path to a file naming the game system and listing resources (URLs and/or local files) describing races, classes, subclasses, features, spells, etc.
+2. **Context** – a path to a file or inline text describing the game: level, one-shot vs campaign, party composition, setting, tone, alignment expectations, house rules.
+
+If either is missing, ask for it before doing anything else.
+
+If the system or context lacks information that materially changes the suggestions, ask about it with the AskUserQuestion tool – e.g. one-shot vs campaign, starting level, allowed sourcebooks, homebrew/house rules, party composition, alignment or tone restrictions, point buy vs rolled stats. Batch related questions into a single call. Every question must include an option such as "I don't know" – when chosen, make a reasonable assumption, state it, and move on. Don't ask about things that can be sensibly assumed or don't affect the concepts.
+
+## Using the resources
+
+- Read the system file. Treat the listed resources as the source of truth for what options exist. Do not suggest races, classes, subclasses, feats or spells that are not available there.
+- For URLs use WebFetch; for local files use Read. Start with index/overview pages (list of races, list of classes and subclasses) to learn the available options. Fetch detail pages only when needed – when checking whether a concept works or when writing build notes.
+- Character level:
+  - **One-shot** (or any game played at a fixed level): the level is a hard constraint. Only rely on features the character actually has at that level (e.g. subclass selection level, spell levels, feat/ASI count).
+  - **Campaign** (character starts low and levels up): concepts may be built around features gained at higher levels. Make clear which parts of the concept kick in at which level, and what the character looks like at the starting level.
+- If a resource cannot be reached, say so and continue using general knowledge of the system, marking anything unverified.
+
+## Step 1 – Initial ideas
+
+Generate **7–10** character concepts. Aim for variety across race, class, role in combat and roleplay tone, while fitting the setting and complementing the party described in the context (fill gaps, avoid duplicating classes/subclasses already taken unless the user asks for it). Include at least one or two less obvious combinations.
+
+Present them as a numbered list:
+
+```
+### 1. <Race> – <Class> (<Subclass>)
+*<2–3 defining adjectives>*
+<2–3 sentences: background hook, playstyle, roleplay vibe.>
+```
+
+Do not give characters names – the user names the character themselves. Refer to them by number and description (e.g. "the sardonic tiefling hexblade").
+
+End with a short reminder of what the user can do next (see Step 2).
+
+## Step 2 – Shortlisting loop
+
+Keep numbering stable across the whole session (new ideas get new numbers, never reuse a discarded number). Maintain two lists: **Shortlisted** and **Discarded**.
+
+In each round the user may, in any combination:
+
+- **keep** ideas → move to Shortlisted
+- **discard** ideas → move to Discarded, never suggest them again in the same form
+- **ask for variants** of an idea (e.g. "#3 but a different race", "more options like #5") → generate 2–4 new numbered variants
+- **ask questions** about an idea (how a feature works, how it fits the party, what it plays like) → answer, citing the resource when relevant
+- **propose their own idea** → turn it into a concept in the Step 1 format, flag any rules problems, and add it with a new number
+- **ask for more fresh ideas** → generate new ones, taking kept/discarded ideas into account as a signal of taste
+
+After each round, show a compact status: shortlisted ideas (number, race – class/subclass, adjectives) and anything newly added. Do not repeat full descriptions of unchanged ideas.
+
+Move on to Step 3 when the user says which shortlisted idea(s) they want to develop.
+
+## Step 3 – Developing a character
+
+Work on one character at a time. Keep the character unnamed – write "the character" or use pronouns/descriptions; other NPCs and places may be named. Write a draft with these sections, one paragraph each for the first five:
+
+- **Background** – origin, key events, why they are part of this adventure, a hook or secret the GM can use.
+- **Playstyle** – what they do in combat and outside of it, their role in the party, signature moves.
+- **Vibe** – roleplay theme, tone, mannerisms, a couple of example lines of dialogue woven in or listed after the paragraph.
+- **Visual description** – appearance, clothing, gear, distinctive features.
+- **Personality** – traits, ideals, bonds, flaws, how they relate to other party members.
+- **Build notes** – a short bulleted list, verified against the resources: ability score priorities, key class/subclass features at the given level, suggested feats/spells/skills/equipment highlights, and any traps to avoid. For a campaign, add a brief level progression (starting level → key milestones where the concept comes together). Link the resource pages used.
+
+Present the draft and iterate on the user's feedback until they are happy. Keep changes targeted – rewrite only the sections they comment on.
+
+## Step 4 – Saving
+
+Before saving the first character, ask the user for the **directory** where character files should go. Reuse that directory for every character in the session unless the user changes it. Create the directory if it does not exist.
+
+Save each finished character to its own file named from its key characteristics in kebab-case: `<adjectives>-<race>-<class>-<subclass>.md` (e.g. `sardonic-reckless-tiefling-warlock-hexblade.md`). If the file already exists, ask before overwriting. Use this layout:
+
+```markdown
+# <Race> – <Class> (<Subclass>)
+
+*<Adjectives>* · Level <N> · <System>
+
+> <One-line concept pitch>
+
+## Background
+...
+
+## Playstyle
+...
+
+## Vibe
+...
+
+## Visual description
+...
+
+## Personality
+...
+
+## Build notes
+- ...
+
+## Sources
+- <resource links used>
+```
+
+After saving, report the path and ask whether to develop the next shortlisted idea, return to the shortlist, or finish.
