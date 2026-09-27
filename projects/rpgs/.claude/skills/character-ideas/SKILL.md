@@ -1,6 +1,6 @@
 ---
 name: character-ideas
-description: Brainstorm, shortlist and develop tabletop RPG character concepts from a game system + resources file and adventure context, then save each finished character as a markdown file.
+description: Brainstorm, shortlist and develop tabletop RPG character concepts from a game system + resources file and adventure context, then save each finished character as a markdown file. Output is in Polish, with English names for game mechanics.
 argument-hint: <system-file> <context-file-or-text>
 disable-model-invocation: true
 allowed-tools: Read, Write, WebFetch, AskUserQuestion, Bash(curl:*), Bash(jq:*), Bash(sed:*), Bash(grep:*), Bash(head:*), Bash(tr:*), Bash(cut:*), Bash(ls:*)
@@ -18,6 +18,19 @@ Help the user go from "I need a character" to one or more fully described charac
 2. **Context** – a path to a file or inline text describing the game: level, one-shot vs campaign, party composition, setting, tone, alignment expectations, house rules.
 
 If either is missing, ask for it before doing anything else.
+
+## Language
+
+Write everything for the user in **Polish** – chat responses, questions (including AskUserQuestion questions and options), concept descriptions, character drafts and saved files. These instructions stay in English; only the output is Polish.
+
+Game mechanics keep their **English names**, because that is how they appear in the resources and on the character sheet:
+
+- Races, classes, subclasses, feats, spells, skills, abilities, class/race features, conditions, equipment with rules meaning (e.g. `Tiefling`, `Warlock (Hexblade)`, `Great Weapon Master`, `Eldritch Blast`, `Athletics`, `Charisma`, `Action Surge`, `Frightened`).
+- When the English term may be unclear to a Polish reader, add the Polish translation in parentheses on its first use in a response or file, e.g. `Athletics (Atletyka)`, `Sneak Attack (Atak z zaskoczenia)`. Don't repeat the translation afterwards, and don't translate terms that are self-explanatory or proper names.
+- Generic rules vocabulary may be written in Polish (poziom, akcja, akcja dodatkowa, rzut obronny, klasa pancerza), optionally with the English term in parentheses where it helps to find it in the resources, e.g. `akcja dodatkowa (bonus action)`.
+- Lore proper names (deities, organisations, places, NPCs) stay in their original form.
+- Adjectives describing a concept are in Polish; the file name (Step 4) uses English equivalents.
+- Polish verbs and adjectives are gendered. If the character's gender is known, use it consistently. If it isn't, write about "postać" and use feminine grammatical agreement throughout, avoiding gendered nouns (e.g. "gladiatorka", "wojownik").
 
 If the system or context lacks information that materially changes the suggestions, ask about it with the AskUserQuestion tool – e.g. one-shot vs campaign, starting level, allowed sourcebooks, homebrew/house rules, party composition, alignment or tone restrictions, point buy vs rolled stats. Batch related questions into a single call. Every question must include an option such as "I don't know" – when chosen, make a reasonable assumption, state it, and move on. Don't ask about things that can be sensibly assumed or don't affect the concepts.
 
@@ -75,7 +88,9 @@ Present them as a numbered list:
 <2–3 sentences: background hook, playstyle, roleplay vibe.>
 ```
 
-Do not give characters names – the user names the character themselves. Refer to them by number and description (e.g. "the sardonic tiefling hexblade").
+Race, class and subclass in the heading are in English; adjectives and description are in Polish.
+
+Do not give characters names – the user names the character themselves. Refer to them by number and description (e.g. "sardoniczny tiefling hexblade").
 
 End with a short reminder of what the user can do next (see Step 2).
 
@@ -94,9 +109,9 @@ In each round the user may, in any combination:
 
 After every change to the lists (keep, discard, new ideas, variants, user's own idea), end the response with the status:
 
-- **Shortlisted** – the whole list of kept ideas, not just the ones changed this round: number, race – class/subclass, adjectives.
-- **Discarded** – numbers only.
-- **New** – any newly added ideas, in the full Step 1 format.
+- **Wybrane** (Shortlisted) – the whole list of kept ideas, not just the ones changed this round: number, race – class/subclass, adjectives.
+- **Odrzucone** (Discarded) – numbers only.
+- **Nowe** (New) – any newly added ideas, in the full Step 1 format.
 
 Do not repeat full descriptions of unchanged ideas.
 
@@ -104,14 +119,14 @@ Move on to Step 3 when the user says which shortlisted idea(s) they want to deve
 
 ## Step 3 – Developing a character
 
-Work on one character at a time. Keep the character unnamed – write "the character" or use pronouns/descriptions; other NPCs and places may be named. Write a draft with these sections, one paragraph each for the first five:
+Work on one character at a time. Keep the character unnamed – use pronouns/descriptions (see the gender note in [Language](#language)); other NPCs and places may be named. Write a draft in Polish with these sections, one paragraph each for the first five:
 
-- **Background** – origin, key events, why they are part of this adventure, a hook or secret the GM can use.
-- **Playstyle** – what they do in combat and outside of it, their role in the party, signature moves.
-- **Vibe** – roleplay theme, tone, mannerisms, a couple of example lines of dialogue woven in or listed after the paragraph.
-- **Visual description** – appearance, clothing, gear, distinctive features.
-- **Personality** – traits, ideals, bonds, flaws, how they relate to other party members.
-- **Build notes** – a short bulleted list, verified against the resources: ability score priorities, key class/subclass features at the given level, suggested feats/spells/skills/equipment highlights, and any traps to avoid. For a campaign, add a brief level progression (starting level → key milestones where the concept comes together). Link the resource pages used.
+- **Historia** (background) – origin, key events, why they are part of this adventure, a hook or secret the GM can use.
+- **Styl gry** (playstyle) – what they do in combat and outside of it, their role in the party, signature moves.
+- **Klimat** (vibe) – roleplay theme, tone, mannerisms, a couple of example lines of dialogue (in Polish) woven in or listed after the paragraph.
+- **Wygląd** (visual description) – appearance, clothing, gear, distinctive features.
+- **Osobowość** (personality) – traits, ideals, bonds, flaws, how they relate to other party members.
+- **Notatki do buildu** (build notes) – a short bulleted list, mechanics named in English as described in [Language](#language), verified against the resources: ability score priorities, key class/subclass features at the given level, suggested feats/spells/skills/equipment highlights, and any traps to avoid. For a campaign, add a brief level progression (starting level → key milestones where the concept comes together). Link the resource pages used.
 
 Present the draft and iterate on the user's feedback until they are happy. Keep changes targeted – rewrite only the sections they comment on.
 
@@ -119,34 +134,34 @@ Present the draft and iterate on the user's feedback until they are happy. Keep 
 
 Before saving the first character, ask the user for the **directory** where character files should go. Reuse that directory for every character in the session unless the user changes it. Create the directory if it does not exist.
 
-Save each finished character to its own file named from its key characteristics in kebab-case: `<adjectives>-<race>-<class>-<subclass>.md` (e.g. `sardonic-reckless-tiefling-warlock-hexblade.md`). If the file already exists, ask before overwriting. Use this layout:
+Save each finished character to its own file named from its key characteristics in kebab-case: `<adjectives>-<race>-<class>-<subclass>.md` (e.g. `sardonic-reckless-tiefling-warlock-hexblade.md`). The file name is in English (adjectives translated, ASCII only). If the file already exists, ask before overwriting. Use this layout – content in Polish, mechanics named in English:
 
 ```markdown
 # <Race> – <Class> (<Subclass>)
 
-*<Adjectives>* · Level <N> · <System>
+*<Przymiotniki>* · Poziom <N> · <System>
 
-> <One-line concept pitch>
+> <Jednozdaniowy opis koncepcji>
 
-## Background
+## Historia
 ...
 
-## Playstyle
+## Styl gry
 ...
 
-## Vibe
+## Klimat
 ...
 
-## Visual description
+## Wygląd
 ...
 
-## Personality
+## Osobowość
 ...
 
-## Build notes
+## Notatki do buildu
 - ...
 
-## Sources
+## Źródła
 - <resource links used>
 ```
 
