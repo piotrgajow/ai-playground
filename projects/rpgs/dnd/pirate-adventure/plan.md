@@ -63,7 +63,10 @@ Taktyka:
 - **Destroy Undead (CR 1/2)** ⚠️ także sługi nekromanty
 - Cantripy rosną: Toll the Dead 2d8/2d12, Word of Radiance 2d6.
 - Harness Divine Power odzyskuje slot **2. poziomu**.
-- Przygotowane (9): + **Revivify**, **Dispel Magic** (bez Detect Magic). Revivify wymaga diamentu za 300 gp – zacznij na niego odkładać.
+- Przygotowane (9): + **Revivify**, **Dispel Magic** (bez Detect Magic).
+- **Wyposażenie:** przedmiot +1 – **Warhammer +1**. Zakupy za 500 gp: diament za 300 gp (komponent Revivify), **Splint armor** (200 gp, wymaga STR 15) → AC 19. Chain mail sprzedana za 37 gp → zostaje **47 gp**.
+- ⚠️ Magic Weapon działa tylko na niemagiczną broń – nie wzmocni Warhammer +1, ale nadal możesz go rzucić na handaxe albo broń sojusznika.
+- ⚠️ Revivify zużywa diament – po każdym użyciu trzeba kupić nowy.
 - Główne combo: tura 1 – Spirit Guardians i wejście w tłum; tura 2 – Spiritual Weapon plus atak bronią.
 
 ### Wynik na poziomie 5
@@ -75,7 +78,7 @@ Taktyka:
 
 |    |    |
 |----|----|
-| HP / AC / Speed | **38** / **18** / 30 stóp |
+| HP / AC / Speed | **38** / **19** / 30 stóp |
 | Proficiency bonus | +3 |
 | Initiative | −1 |
 | Spell save DC / spell attack | **15** / +7 |
@@ -85,7 +88,7 @@ Taktyka:
 
 | Atak | Trafienie | Obrażenia |
 |----|----|----|
-| Warhammer | +6 | 1d8+3 bludgeoning (1d10+3 oburącz) |
+| Warhammer +1 | +7 | 1d8+4 bludgeoning (1d10+4 oburącz) |
 | Handaxe | +6 | 1d6+3 slashing, rzut 20/60 stóp |
 | Spiritual Weapon | +7 | 1d8+4 force |
 | Toll the Dead | WIS save DC 15 | 2d8 necrotic (2d12, jeśli cel jest ranny) |
@@ -99,3 +102,6 @@ Taktyka:
 - https://dnd5e.wikidot.com/background:soldier
 - https://dnd5e.wikidot.com/feat:war-caster
 - https://dnd5e.wikidot.com/spell:sanctuary
+- https://dnd5e.wikidot.com/armor
+- https://dnd5e.wikidot.com/spell:revivify
+- https://dnd5e.wikidot.com/spell:magic-weapon

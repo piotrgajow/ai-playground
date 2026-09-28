@@ -2,6 +2,12 @@
 
 Level <N> · <System> · Concept: [<idea file name>](<relative path to idea file>) · Level-up plan: [plan.md](plan.md)
 
+## Ability scores
+
+| STR | DEX | CON | INT | WIS | CHA |
+|-----|-----|-----|-----|-----|-----|
+| <n> | <n> | <n> | <n> | <n> | <n> |
+
 ## Race, class, background
 
 - <Race / subrace / lineage>
@@ -36,8 +42,12 @@ Level <N> · <System> · Concept: [<idea file name>](<relative path to idea file
 - <Weapon>
 - <Pack>: <Item>, <Item> ×<count>, <Item> (<length>)
 - <Background item>
-- <N> gp
 - <Story item> ×<count>
+- <Costly component> (worth <N> gp)
+
+## Gold
+
+- <N> gp
 
 ## Spells
 

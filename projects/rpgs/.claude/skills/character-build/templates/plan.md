@@ -15,7 +15,7 @@ Założenia: <race variant>, <ability score method>, background <Background>, <H
    - <subclass proficiencies>
    - **<Level 1 feature>** – <short rule>
 4. **Background – <Background> (<variant>):** <skills>, <tools>, feature <Feature>, <gold>.
-5. **Wyposażenie:** <items, noting which option was chosen>.
+5. **Wyposażenie:** <items, noting which option was chosen>. <Additional items and purchases, if any: <item> (<cost>), ... → zostaje <N> gp.>
 6. **Czary:**
    - cantripy (<n>): <Cantrip>, <Cantrip>
    - sloty: <n> × 1. poziom
@@ -63,6 +63,10 @@ Taktyka:
 ## Poziom <N> (planowany)
 
 - <same structure as above, for levels beyond the sheet level>
+
+### Wynik na poziomie <last planned level>
+
+<same tables as the sheet-level summary; only in the last planned level section, and only if it is above the sheet level>
 
 ## Źródła
 

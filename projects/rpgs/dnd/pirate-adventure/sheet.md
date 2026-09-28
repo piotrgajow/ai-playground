@@ -2,6 +2,12 @@
 
 Level 5 · D&D 5e (2014) · Concept: [ideas/zealous-grim-battle-hungry-human-cleric-war.md](ideas/zealous-grim-battle-hungry-human-cleric-war.md) · Level-up plan: [plan.md](plan.md)
 
+## Ability scores
+
+| STR | DEX | CON | INT | WIS | CHA |
+|-----|-----|-----|-----|-----|-----|
+| 16  | 8   | 14  | 8   | 18  | 10  |
+
 ## Race, class, background
 
 - Variant Human
@@ -32,9 +38,9 @@ Level 5 · D&D 5e (2014) · Concept: [ideas/zealous-grim-battle-hungry-human-cle
 
 ## Equipment
 
-- Chain mail
+- Splint armor
 - Shield (emblem of Tempus – holy symbol)
-- Warhammer
+- Warhammer +1
 - Handaxe
 - Explorer's pack: Backpack, Bedroll, Mess kit, Tinderbox, Torch ×10, Rations ×10, Waterskin, Hempen rope (50 ft)
 - Insignia of rank
@@ -42,8 +48,12 @@ Level 5 · D&D 5e (2014) · Concept: [ideas/zealous-grim-battle-hungry-human-cle
 - Bone dice
 - Common clothes
 - Belt pouch
-- 10 gp
 - Iron beads ×4
+- Diamond (worth 300 gp)
+
+## Gold
+
+- 47 gp
 
 ## Spells
 
