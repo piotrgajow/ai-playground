@@ -70,13 +70,22 @@ all of them or one, because the answer changes what counts as "the convention".
 
 Then delegate the scan to a subagent so the raw file contents never enter this
 conversation. Give it the brief in `references/scan-brief.md` with the topic, the
-scoped paths, and the list of linter-enforced things to ignore. It returns a structured
-list of candidate patterns, each with evidence files, adherence count, conflicting
-variants with git recency, and the files that do not follow it.
+scoped paths, and the list of linter-enforced things to ignore. When the scope spans
+several apps or areas, run one subagent per area in parallel and merge the reports
+yourself; a single agent over everything is slower and blurs per-area variants. If the
+clone is shallow, deepen it first (`git fetch --depth=300 origin HEAD`) so recency dates
+come back. Each report returns a structured list of candidate patterns with evidence
+files, adherence count, conflicting variants with git recency, and the files that do
+not follow it.
+
+Save a condensed copy of each report to the scratchpad directory (never the repo) before
+reviewing. Reports are long, the review is longer, and a compaction in between loses
+the evidence you will need for the deviations list.
 
 Read the result critically. Drop patterns that are really just the framework's defaults,
 merge duplicates, and order them from structural (where files go, how they are wired)
-to local (naming, prop shapes, error handling).
+to local (naming, prop shapes, error handling). Number them; "pattern 7 of 22" tells
+the user how long this will take.
 
 Create `.claude/skills/<slug>/WIP.md` now and append every decision to it as it is made.
 A long review is likely to outlive the context window, and the file is what lets a
@@ -84,18 +93,36 @@ resumed session continue instead of re-asking.
 
 ### Phase 3 — Review patterns, one at a time
 
-For each candidate pattern present:
+Ask with `AskUserQuestion`, one pattern per call, and put everything the user needs
+into the question text itself: the dialog is all they look at, and a short label with
+the details in the chat above it reads as "a couple of words". The question holds:
 
-- the rule as one imperative sentence
+- the rule as one or two imperative sentences, concrete enough to paste into the skill
 - 2–3 evidence files, and how many of the scanned files follow it (e.g. "7 of 9")
-- when variants conflict: each variant with its most recent commit date, clearly
-  labelled, so the user sees which one is newer without you deciding for them
-- a one-line note if it overlaps an existing CLAUDE.md or rule
+- when variants conflict: each variant with its file count and most recent commit
+  date, clearly labelled, so the user sees which one is newer without you deciding
+  for them; offer one option per variant
+- the deviating files with a few words each
+- a one-line note if it overlaps or contradicts an existing CLAUDE.md or rule
 
-Then ask whether to keep it. Offer accept, accept with changes, reject. The user may
-instead ask why the pattern exists, what the trade-off is, or how it compares to an
-alternative: answer from the evidence and from engineering judgement, then re-ask. Do
-not move on while an answer is still open.
+Options: accept, accept with changes (the user types the change under Other), reject.
+The user may instead ask why the pattern exists, what the trade-off is, or how it
+compares to an alternative: answer from the evidence and from engineering judgement,
+then re-ask. Do not move on while an answer is still open.
+
+Three things happen often enough to plan for:
+
+- **A scope boundary.** The user says "no styling rules", "imports will be a separate
+  skill", "only the shared template, not the inner layout". List the remaining
+  candidates that fall under that boundary in one question and ask whether to skip
+  them all, instead of presenting each one and being told no again.
+- **A new convention that supersedes discovered patterns.** When the user replaces a
+  pattern with something the code does not do yet (a different data-loading model, a
+  different hook shape), later patterns that assumed the old one must be presented in
+  light of the new decision, and say so in the question.
+- **A contradiction with an existing CLAUDE.md line.** Ask explicitly which wins. If
+  the new rule wins, the skill states the scope and the user updates CLAUDE.md
+  themselves; say that.
 
 Accepted rules go into WIP.md verbatim in the user's final wording. Rejected ones are
 recorded as rejected with a one-line reason, so an update run does not resurface them.
@@ -127,7 +154,7 @@ Write `.claude/skills/<slug>/SKILL.md` using the template and guidance in
   silently; a path that stops existing is at least noticed.
 - Rules are short, imperative, and explain the why in half a sentence where it is not
   obvious. Rationale that needs more than that goes to `references/rationale.md`.
-- Keep SKILL.md under roughly 150 lines. Move procedural detail into `references/`.
+- Keep SKILL.md under roughly 200 lines. Move procedural detail into `references/`.
 
 Then propose the **companion rule**: a `.claude/rules/<slug>.md` scoped with `paths:` to
 the globs where the evidence files live, holding only the hard must/never items, ending
@@ -146,15 +173,20 @@ Compile the list of places that do not follow the accepted rules: the non-confor
 files from the scan for accepted patterns, plus the violations of accepted improvements.
 Group by rule, one line per file with what is off.
 
-If the list is empty, say so and finish. Otherwise print it in the conversation and ask
-what to do with it: refactor now, save to a path the user names, or leave it printed for
-them to paste elsewhere. Do not save it anywhere by default and never inside
+If the list is empty, say so and finish. Otherwise show a per-rule count table in the
+conversation first, then ask in one question what to do with the full list: refactor
+now, save to a path, print it here for pasting elsewhere, or drop it. Put the path
+candidates into that same question (an existing `docs/` or `plans/` directory if the
+repo has one, a sensible default under `docs/`, and a custom option) so the user does
+not get asked twice. Do not save it anywhere by default and never inside
 `.claude/skills/`.
 
 ### Finish
 
-Delete `WIP.md`. List the files written. Suggest the user runs one real task against
-the new skill soon, since a skill that never triggers is indistinguishable from no skill.
+Delete `WIP.md`. List the files written and note that they are uncommitted; ask
+whether and where to commit them rather than committing on the user's behalf. Suggest
+the user runs one real task against the new skill soon, since a skill that never
+triggers is indistinguishable from no skill.
 
 ---
 
