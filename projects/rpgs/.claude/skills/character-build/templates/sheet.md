@@ -8,6 +8,10 @@ Level <N> · <System> · Concept: [<idea file name>](<relative path to idea file
 |-----|-----|-----|-----|-----|-----|
 | <n> | <n> | <n> | <n> | <n> | <n> |
 
+## Hit points
+
+- <N> max
+
 ## Race, class, background
 
 - <Race / subrace / lineage>
@@ -21,7 +25,7 @@ Level <N> · <System> · Concept: [<idea file name>](<relative path to idea file
 ## Proficiencies
 
 - **Saving throws:** <Ability>, <Ability>
-- **Skills:** <Skill>, <Skill>
+- **Skills:** <Skill>, <Skill>, <Skill> (expertise)
 - **Armor:** <Armor category>, <Shields>
 - **Weapons:** <Weapon category or weapon>
 - **Tools:** <Tool>, <Vehicle>
@@ -40,6 +44,7 @@ Level <N> · <System> · Concept: [<idea file name>](<relative path to idea file
 - <Armor>
 - <Shield (detail)>
 - <Weapon>
+- <Magic item> (attuned)
 - <Pack>: <Item>, <Item> ×<count>, <Item> (<length>)
 - <Background item>
 - <Story item> ×<count>

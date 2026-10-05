@@ -51,10 +51,11 @@ Read both templates before writing a file. Compute relative links between the sh
 
 ### Sheet – `.claude/skills/character-build/templates/sheet.md`
 
-The character **at the sheet level**:
+The character **at the sheet level**. The `character-cheatsheet` skill builds from the sheet alone, so the sheet must record every choice that can't be derived from the rules:
 
-- Names only – no descriptions, derived stats or rules text. The only numbers allowed are ability scores (final, with all bonuses), counts (`Torch ×10`), gold, spell slot counts, levels, CR in feature names, and the value of costly material components (`Diamond (worth 300 gp)`).
+- Names only – no descriptions, derived stats or rules text. The only numbers allowed are ability scores (final, with all bonuses), the hit point maximum, counts (`Torch ×10`), gold, spell slot counts, levels, CR in feature names, and the value of costly material components (`Diamond (worth 300 gp)`).
 - Only what the character has: no suggestions, alternatives, things to buy, or features from higher levels.
+- Mark skills with expertise as `<Skill> (expertise)` and attuned magic items as `<Item> (attuned)`.
 - Include the contents of packs, and background equipment.
 - Record all money in the Gold section, not in Equipment.
 - Story items from the idea file (e.g. keepsakes described in its Visual description) go into Equipment.
@@ -112,7 +113,7 @@ Advance one level at a time, repeating the steps below until the target level is
    - per-day choices that are best made now (e.g. which spells to prepare).
 5. **Draft.** Show in chat the changes to the sheet (added and removed items, per section) and the updated numbers.
 6. After the user accepts:
-   - **`sheet.md`** – update the header level and class line, and add/remove features, proficiencies, spells, slots, equipment and languages. Apply the file rules: names only, only what the character has.
+   - **`sheet.md`** – update the header level, class line and hit point maximum, and add/remove features, proficiencies, spells, slots, equipment and languages. Apply the file rules: names only, only what the character has.
    - **`plan.md`** – remove `(planowany)` from the reached level and record what was actually chosen there (including HP rolled and deviations). Move the sheet-level summary to the new sheet level, recomputed. If a deviation affects later planned levels, update them and tell the user what changed. If the new sheet level is the last level of the plan, keep a single summary there.
 
 ## Finishing

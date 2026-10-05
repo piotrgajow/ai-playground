@@ -8,6 +8,10 @@ Level 5 · D&D 5e (2014) · Concept: [ideas/zealous-grim-battle-hungry-human-cle
 |-----|-----|-----|-----|-----|-----|
 | 16  | 8   | 14  | 8   | 18  | 10  |
 
+## Hit points
+
+- 38 max
+
 ## Race, class, background
 
 - Variant Human

@@ -1,0 +1,277 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{CHARACTER_NAME}} · Cheatsheet</title>
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --muted: #5a5a5a;
+    --line: #9a9a9a;
+    --fill: #efece6;
+    --accent: #7a1f1f;
+  }
+
+  @page { size: A4; margin: 9mm; }
+
+  * { box-sizing: border-box; }
+
+  html { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+
+  body {
+    margin: 0;
+    background: #d9d6d0;
+    color: var(--ink);
+    font: 9pt/1.32 Georgia, "Times New Roman", serif;
+  }
+
+  main {
+    width: 210mm;
+    margin: 12mm auto;
+    padding: 9mm;
+    background: #fff;
+    box-shadow: 0 2px 12px rgb(0 0 0 / .25);
+  }
+
+  @media print {
+    body { background: #fff; }
+    main { width: auto; margin: 0; padding: 0; box-shadow: none; }
+  }
+
+  h1, h2, h3, h4 { font-family: "Helvetica Neue", Arial, sans-serif; margin: 0; }
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 1.5mm;
+    margin-bottom: 2.5mm;
+  }
+  .title h1 { font-size: 17pt; color: var(--accent); }
+  .title .sub { color: var(--muted); font-size: 9pt; }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(19mm, 1fr));
+    gap: 1.5mm;
+    margin-bottom: 2mm;
+  }
+  .stat {
+    border: 1px solid var(--line);
+    border-radius: 1.5mm;
+    text-align: center;
+    padding: 1mm .5mm;
+  }
+  .stat .v { display: block; font: bold 12pt "Helvetica Neue", Arial, sans-serif; min-height: 5mm; }
+  .stat .k { display: block; font-size: 6.5pt; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+  .stat .s { display: block; font-size: 6.5pt; color: var(--muted); }
+  .stat.prof .s { color: var(--accent); font-weight: bold; }
+
+  .skills { font-size: 8pt; color: var(--muted); margin-bottom: 2.5mm; }
+  .skills b { color: var(--ink); }
+
+  .resources {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5mm 5mm;
+    padding: 1.5mm 2mm;
+    background: var(--fill);
+    border-radius: 1.5mm;
+    margin-bottom: 3mm;
+    font-size: 8pt;
+  }
+  .resource b { font-family: "Helvetica Neue", Arial, sans-serif; margin-right: 1mm; }
+  .resource .rest { color: var(--muted); font-size: 7pt; }
+
+  section { margin-bottom: 3mm; }
+  section > h2 {
+    font-size: 10.5pt;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: #fff;
+    background: var(--accent);
+    padding: .8mm 2mm;
+    border-radius: 1mm;
+    margin-bottom: 1.5mm;
+    break-after: avoid;
+  }
+  section > h3 {
+    font-size: 8.5pt;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+    color: var(--accent);
+    border-bottom: 1px solid var(--line);
+    margin: 2mm 0 1.2mm;
+    break-after: avoid;
+  }
+
+  .opener {
+    border-left: 3px solid var(--accent);
+    padding: .8mm 2mm;
+    margin-bottom: 1.5mm;
+    background: var(--fill);
+  }
+
+  .cards { columns: 2; column-gap: 3mm; }
+
+  .card {
+    break-inside: avoid;
+    border: 1px solid var(--line);
+    border-radius: 1.5mm;
+    padding: 1.2mm 1.8mm 1.4mm;
+    margin-bottom: 1.8mm;
+  }
+  .card header { display: flex; justify-content: space-between; align-items: baseline; gap: 2mm; }
+  .card h4 { font-size: 9pt; }
+  .card .lvl { font: bold 7pt "Helvetica Neue", Arial, sans-serif; color: var(--accent); white-space: nowrap; }
+  .card .meta { font-size: 7.2pt; color: var(--muted); margin: .3mm 0 .6mm; }
+  .card p { margin: .5mm 0 0; }
+  .card .upcast { font-size: 7.8pt; font-style: italic; }
+  .card .xref { font-size: 7.5pt; color: var(--muted); }
+
+  .tags { margin-top: .8mm; }
+  .tag {
+    display: inline-block;
+    font: bold 6.3pt "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+    padding: .2mm 1.2mm;
+    border-radius: 1mm;
+    border: 1px solid var(--ink);
+    margin-right: .8mm;
+  }
+  .tag.action { background: var(--ink); color: #fff; }
+  .tag.bonus { background: #5a5a5a; color: #fff; border-color: #5a5a5a; }
+  .tag.reaction { background: #fff; }
+  .tag.conc { background: #fff; border-style: dashed; color: var(--accent); border-color: var(--accent); }
+  .tag.ritual { background: var(--fill); }
+  .tag.rest-short, .tag.rest-long { background: #fff; color: var(--muted); border-color: var(--muted); }
+
+  .xrefs { font-size: 7.8pt; color: var(--muted); margin: 0 0 1.5mm; }
+
+  table.inv { width: 100%; border-collapse: collapse; font-size: 8pt; }
+  table.inv th {
+    text-align: left;
+    font: bold 7pt "Helvetica Neue", Arial, sans-serif;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--line);
+    padding: .5mm 1mm;
+  }
+  table.inv td { border-bottom: 1px dotted var(--line); padding: .6mm 1mm; vertical-align: top; }
+  table.inv tr { break-inside: avoid; }
+
+  .rules { columns: 2; column-gap: 3mm; }
+  .rule { break-inside: avoid; margin-bottom: 1.5mm; }
+  .rule h4 { font-size: 8.5pt; display: inline; }
+  .rule p { display: inline; margin: 0; }
+
+  .warn { color: var(--accent); font-weight: bold; }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="title">
+    <h1>{{CHARACTER_NAME}}</h1>
+    <span class="sub">{{RACE}} · {{CLASS_AND_LEVEL}} · {{BACKGROUND}} · {{SYSTEM}}</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><span class="v">{{AC}}</span><span class="k">AC</span><span class="s">{{AC_SOURCE}}</span></div>
+    <div class="stat"><span class="v">{{HP_MAX}}</span><span class="k">HP max</span><span class="s">{{HIT_DICE}}</span></div>
+    <div class="stat"><span class="v">{{SPEED}}</span><span class="k">Speed</span></div>
+    <div class="stat"><span class="v">{{INITIATIVE}}</span><span class="k">Initiative</span></div>
+    <div class="stat"><span class="v">{{PROF_BONUS}}</span><span class="k">Proficiency</span></div>
+    <div class="stat"><span class="v">{{SPELL_DC}}</span><span class="k">Spell DC</span></div>
+    <div class="stat"><span class="v">{{SPELL_ATTACK}}</span><span class="k">Spell atk</span></div>
+    <div class="stat"><span class="v">{{PASSIVE_PERCEPTION}}</span><span class="k">Passive Perc.</span></div>
+  </div>
+
+  <div class="stats">
+    <div class="stat {{PROF_CLASS}}"><span class="v">{{MOD}}</span><span class="k">{{ABILITY}} {{SCORE}}</span><span class="s">save {{SAVE}}</span></div>
+  </div>
+
+  <div class="skills"><b>Skills:</b> {{SKILL_LIST}} · <b>Languages:</b> {{LANGUAGES}} · <b>Tools:</b> {{TOOLS}}</div>
+
+  <div class="resources">
+    <span class="resource"><b>{{RESOURCE_NAME}}</b>{{COUNT}} <span class="rest">/ {{RECHARGE}}</span></span>
+  </div>
+
+  <section>
+    <h2>Combat</h2>
+    <div class="opener"><b>Turn one opener:</b> {{OPENER}}</div>
+
+    <h3>Actions</h3>
+    <div class="cards">
+      <article class="card">
+        <header><h4>{{SPELL_NAME}}</h4><span class="lvl">{{SPELL_LEVEL_AND_SCHOOL}}</span></header>
+        <div class="meta">{{CASTING_TIME}} · {{RANGE}} · {{COMPONENTS}} · {{DURATION}}</div>
+        <p>{{EFFECT}}</p>
+        <p class="upcast">{{HIGHER_LEVELS}}</p>
+        <div class="tags"><span class="tag action">Action</span><span class="tag conc">Conc.</span></div>
+      </article>
+
+      <article class="card">
+        <header><h4>{{WEAPON_NAME}}</h4><span class="lvl">{{ATTACK_BONUS}} to hit</span></header>
+        <div class="meta">{{REACH_OR_RANGE}} · {{PROPERTIES}}</div>
+        <p><b>{{DAMAGE}}</b> {{DAMAGE_TYPE}}</p>
+        <div class="tags"><span class="tag action">Action</span></div>
+      </article>
+    </div>
+
+    <h3>Bonus actions</h3>
+    <div class="cards"></div>
+
+    <h3>Reactions</h3>
+    <div class="cards"></div>
+
+    <h3>Always on / passive</h3>
+    <div class="cards">
+      <article class="card">
+        <header><h4>{{FEATURE_NAME}}</h4><span class="lvl">{{FEATURE_SOURCE}}</span></header>
+        <div class="meta">{{TRIGGER}} · {{USES}}</div>
+        <p>{{EFFECT}}</p>
+        <div class="tags"><span class="tag rest-long">Long rest</span></div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <h2>Exploration &amp; travel</h2>
+    <p class="xrefs">{{CROSS_REFERENCES}}</p>
+    <div class="cards"></div>
+  </section>
+
+  <section>
+    <h2>Social &amp; NPC encounters</h2>
+    <div class="cards"></div>
+  </section>
+
+  <section>
+    <h2>Healing, support &amp; recovery</h2>
+    <div class="cards"></div>
+  </section>
+
+  <section>
+    <h2>Inventory</h2>
+    <table class="inv">
+      <thead><tr><th>Item</th><th>Qty</th><th>Use</th></tr></thead>
+      <tbody>
+        <tr><td>{{ITEM}}</td><td>{{QTY}}</td><td>{{ITEM_USE}}</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Rules reference</h2>
+    <div class="rules">
+      <div class="rule"><h4>{{RULE_NAME}}.</h4> <p>{{RULE_SUMMARY}}</p></div>
+    </div>
+  </section>
+
+</main>
+</body>
+</html>
