@@ -100,29 +100,33 @@ contradiction with an existing CLAUDE.md or rule. Everything else (conflicts, lo
 adherence, anything touching existing docs) is reviewed one at a time regardless of
 the choice, because those are the ones that need a decision rather than a nod.
 
-In batch mode, present the obvious patterns through `AskUserQuestion` with
-`multiSelect`, as many per call as the tool allows (currently four), each option's
-label naming the pattern and its description carrying the full rule sentence plus
-adherence and deviating files. Pre-explain that ticked means accepted and unticked
-means rejected, and that "Other" with a pattern number and a change edits it. A
-pattern the user edits in a batch is re-asked on its own if the edit changes its
-meaning.
-
-For everything reviewed individually, ask with `AskUserQuestion`, one pattern per
-call, and put everything the user needs into the question text itself: the dialog is all they look at, and a short label with
-the details in the chat above it reads as "a couple of words". The question holds:
+Every pattern, batched or not, is written out in the conversation **before** the
+question that decides it, as a short block the user can read at their own pace:
 
 - the rule as one or two imperative sentences, concrete enough to paste into the skill
 - 2–3 evidence files, and how many of the scanned files follow it (e.g. "7 of 9")
 - when variants conflict: each variant with its file count and most recent commit
   date, clearly labelled, so the user sees which one is newer without you deciding
-  for them; offer one option per variant
+  for them
 - the deviating files with a few words each
 - a one-line note if it overlaps or contradicts an existing CLAUDE.md or rule
 
-Options: accept, accept with changes (the user types the change under Other), reject.
-The user may instead ask why the pattern exists, what the trade-off is, or how it
-compares to an alternative: answer from the evidence and from engineering judgement,
+The `AskUserQuestion` that follows is then short: the question is one sentence naming
+the pattern ("Keep rule 7, page-local components are pure?"), and each option has a
+one-sentence description. The dialog is for deciding, the conversation is for reading;
+stuffing the full rule into the dialog makes it unreadable, and a dialog with only a
+label and nothing written above it makes the user guess what they are accepting.
+
+In batch mode, write out all patterns of the batch first, then ask with `multiSelect`,
+as many per call as the tool allows (currently four), one option per pattern with its
+number and a one-sentence label. Pre-explain that ticked means accepted and unticked
+means rejected, and that "Other" with a pattern number and a change edits it. A pattern
+the user edits in a batch is re-asked on its own if the edit changes its meaning.
+
+Patterns reviewed individually get one call each. Options: accept, accept with changes
+(the user types the change under Other), reject; for a conflict, one accept option per
+variant. The user may instead ask why the pattern exists, what the trade-off is, or how
+it compares to an alternative: answer from the evidence and from engineering judgement,
 then re-ask. Do not move on while an answer is still open.
 
 Three things happen often enough to plan for:
@@ -147,8 +151,8 @@ recorded as rejected with a one-line reason, so an update run does not resurface
 With the accepted rules in hand, look at the topic through the lenses in
 `references/improvement-lenses.md` and propose at most six improvements, best first.
 Each one states the change, why it helps here specifically, the trade-off, and the rule
-it would become. Present one at a time, same accept / edit / reject flow, same
-willingness to discuss.
+it would become. Present one at a time: the full proposal in the conversation, then a
+one-sentence question with accept / edit / reject, same willingness to discuss.
 
 An accepted improvement is a rule the code does not yet follow. In the skill it is still
 written as a plain rule, because the user wants new code to follow it even where
@@ -175,8 +179,8 @@ Then propose the **companion rule**: a `.claude/rules/<slug>.md` scoped with `pa
 the globs where the evidence files live, holding only the hard must/never items, ending
 with a pointer to the skill. Explain in one line why it exists: the skill fires on task
 intent, the rule fires on touching the files, and a bug fix in a page rarely announces
-itself as "page work". Show the draft and ask yes/no. Keep it under 15 lines; it is loaded
-on every edit of those files.
+itself as "page work". Show the draft in the conversation, then ask yes/no in one
+sentence. Keep it under 15 lines; it is loaded on every edit of those files.
 
 Re-read both files with fresh eyes before confirming they are written. Check that the
 description would trigger on a bug-fix prompt, that no rule duplicates a linter, and
