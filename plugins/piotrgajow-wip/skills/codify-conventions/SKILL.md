@@ -91,10 +91,25 @@ Create `.claude/skills/<slug>/WIP.md` now and append every decision to it as it 
 A long review is likely to outlive the context window, and the file is what lets a
 resumed session continue instead of re-asking.
 
-### Phase 3 — Review patterns, one at a time
+### Phase 3 — Review patterns
 
-Ask with `AskUserQuestion`, one pattern per call, and put everything the user needs
-into the question text itself: the dialog is all they look at, and a short label with
+Before the first pattern, show the numbered list with one line each and ask how to
+review it: **one at a time**, or **batch the obvious ones**. An obvious pattern has
+adherence of roughly 90% or more, no conflicting variants, and no overlap or
+contradiction with an existing CLAUDE.md or rule. Everything else (conflicts, low
+adherence, anything touching existing docs) is reviewed one at a time regardless of
+the choice, because those are the ones that need a decision rather than a nod.
+
+In batch mode, present the obvious patterns through `AskUserQuestion` with
+`multiSelect`, as many per call as the tool allows (currently four), each option's
+label naming the pattern and its description carrying the full rule sentence plus
+adherence and deviating files. Pre-explain that ticked means accepted and unticked
+means rejected, and that "Other" with a pattern number and a change edits it. A
+pattern the user edits in a batch is re-asked on its own if the edit changes its
+meaning.
+
+For everything reviewed individually, ask with `AskUserQuestion`, one pattern per
+call, and put everything the user needs into the question text itself: the dialog is all they look at, and a short label with
 the details in the chat above it reads as "a couple of words". The question holds:
 
 - the rule as one or two imperative sentences, concrete enough to paste into the skill
@@ -192,7 +207,8 @@ triggers is indistinguishable from no skill.
 
 ## Rules
 
-- One question at a time. Never batch patterns into a single accept-all prompt.
+- One decision per pattern. Batch mode groups obvious patterns into one dialog but each
+  is still ticked individually; never offer a single accept-all.
 - Never decide a conflict between variants silently. Show both, show dates, ask.
 - A rule the user did not accept does not go into the output, however obvious it looks.
 - Do not restate what a linter or type checker enforces.
