@@ -21,12 +21,33 @@ description: >
 
 <One or two sentences: what a <thing> is here and what it is responsible for.>
 
-## Reference implementations
+This skill is self-sufficient: the anatomy, rules and canonical example below are
+everything needed for the task. Do not search the codebase for other examples; read
+only the canonical example and the files you are changing. Explore further only when a
+task needs something this skill does not cover, and say so.
 
-Read one of these before writing a new instance; match its structure.
+## Anatomy
 
-- `<path>` — <why this one: most complete / newest / covers variant X>
-- `<path>` — <...>
+<Where things live and how they connect, so nothing has to be discovered. Concrete
+paths and name patterns, not prose.>
+
+- Files per <thing>: `<dir>/<Name>/<Name>.tsx`, `<Name>.test.tsx`, ... — <what each holds>
+- Naming: <pattern>
+- Wiring: <every place a new <thing> must be registered or imported: router, index,
+  barrel, DI module, config; each as a path plus what to add>
+
+## Canonical example
+
+Read this one file before writing a new instance. Match it.
+
+- `<path>` — <why it was chosen>
+
+What to copy from it, in order:
+1. <part, e.g. "imports and props type at the top"> — <the convention it shows>
+2. <...>
+
+Variants (only when the user accepted more than one valid shape):
+- `<path>` — use when <condition>; differs in <what>
 
 ## Rules
 
@@ -79,6 +100,14 @@ Guidance:
 - Prefer "do X" over "always do X". Reserve emphasis for rules whose violation is
   expensive, and say why it is expensive.
 - Reference files by path. Verify every path exists before finishing.
+- The canonical example must itself follow every accepted rule. If no existing file
+  does, say so in the skill and name the closest one with the rules it breaks; never
+  pick a file that contradicts the skill.
+- Anatomy and the example walkthrough are what spare a future session from running
+  discovery. If a session would still have to grep to know where a new file goes or
+  what to register, the anatomy is incomplete.
+- Last line of SKILL.md: `Verified against <short commit hash> on <date>.` so
+  staleness is visible.
 - Under ~150 lines. Put long how-tos in `references/`.
 
 ## 2. `.claude/skills/<slug>/references/rationale.md`

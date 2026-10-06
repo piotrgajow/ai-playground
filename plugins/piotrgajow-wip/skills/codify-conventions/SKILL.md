@@ -169,8 +169,15 @@ Write `.claude/skills/<slug>/SKILL.md` using the template and guidance in
 - The `description` is the trigger. It must name the full lifecycle of the topic:
   adding, changing, fixing, refactoring and reviewing that kind of thing, in the words
   a user would actually type, and it should err on the side of triggering.
+- The skill has two goals: sessions build the topic the same way without being told,
+  and sessions do not rerun discovery against the code. So it carries an **Anatomy**
+  (file layout, naming, every registration point) and one **canonical example**, a
+  file path plus a walkthrough of what to copy from it. Before writing, propose the
+  canonical example to the user (best-conforming, recent, representative) and ask for
+  confirmation; if no file conforms fully, say which rules the closest one breaks.
 - Examples are references to files in the repo, not pasted snippets. Snippets go stale
-  silently; a path that stops existing is at least noticed.
+  silently; a path that stops existing is at least noticed. The walkthrough describes
+  the example's parts in words so the session knows what to take from it.
 - Rules are short, imperative, and explain the why in half a sentence where it is not
   obvious. Rationale that needs more than that goes to `references/rationale.md`.
 - Keep SKILL.md under roughly 200 lines. Move procedural detail into `references/`.
@@ -184,7 +191,9 @@ sentence. Keep it under 15 lines; it is loaded on every edit of those files.
 
 Re-read both files with fresh eyes before confirming they are written. Check that the
 description would trigger on a bug-fix prompt, that no rule duplicates a linter, and
-that every file path mentioned exists.
+that every file path mentioned exists. Then do a dry run: pretend to add a new instance
+using only the skill and the canonical example. If you would need to grep to find where
+a file goes or what to register, fill the gap in Anatomy.
 
 ### Phase 6 — Deviations
 
