@@ -23,6 +23,11 @@
       "name": "piotrgajow-wip",
       "source": "./plugins/piotrgajow-wip",
       "description": "Personal WIP skills for Claude Code"
+    },
+    {
+      "name": "piotrgajow-workflow",
+      "source": "./plugins/piotrgajow-workflow",
+      "description": "Agentic development workflow: refine, plan, execute, review, commit"
     }
   ]
 }
