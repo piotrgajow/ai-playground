@@ -6,7 +6,7 @@ description: >
   ambiguous. Writes `<work_dir>/<slug>/spec.md`.
 argument-hint: [ticket text, id or link]
 disable-model-invocation: true
-allowed-tools: Read(${CLAUDE_PLUGIN_ROOT}/**)
+allowed-tools: Read(/${CLAUDE_PLUGIN_ROOT}/**)
 ---
 
 Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` first, then load the config. Apply

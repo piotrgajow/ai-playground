@@ -6,7 +6,7 @@ description: >
   user, and writes `.workflow/config.md`. Run once per repository, or again to
   update the config.
 disable-model-invocation: true
-allowed-tools: Read(${CLAUDE_PLUGIN_ROOT}/**)
+allowed-tools: Read(/${CLAUDE_PLUGIN_ROOT}/**)
 ---
 
 Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` first.
