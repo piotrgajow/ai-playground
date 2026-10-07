@@ -2,7 +2,8 @@
 
 Every workflow step reads this file first, whether it runs as a skill in the main
 session or as a subagent. It defines where things live, the file formats, the task
-status machine and the rules that are shared by all steps.
+status machine and the rules that are shared by all steps. Steps that write task
+files (`plan`, `amend`) also read `task-authoring.md`.
 
 ## Config
 
@@ -30,7 +31,8 @@ Frontmatter fields:
 | `retry_limit` | Max re-executions of a task after a failed review before a human must step in |
 
 Body sections (all optional): `## refine`, `## plan`, `## execute`, `## review`.
-A step reads its own section and treats it as additional instructions.
+A step reads its own section and treats it as additional instructions. `amend` reads
+`## plan`, since it writes tasks the same way.
 
 ## Conventions
 
@@ -92,6 +94,9 @@ numbered by attempt. Earlier reports are never edited or removed.
 | `committed` | commit | Changes committed |
 | `dropped` | plan (revise) | Superseded by other tasks; never executed |
 
+Tasks added after the fact by `amend` start at `todo` like any other and follow the
+same transitions. `amend` never changes the status of an existing task.
+
 Transitions:
 
 ```
@@ -118,7 +123,7 @@ run; the frontmatter is the source of truth, the message only explains it.
 ## Shared rules
 
 - One step never does another step's job. Execute does not review, review does not
-  edit source, commit does not verify.
+  edit source, commit does not verify, amend does not edit existing tasks.
 - Steps communicate only through files in the feature directory. Never rely on chat
   history from a previous step.
 - When a step is asked to run on a task in the wrong status, stop and say which

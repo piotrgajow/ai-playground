@@ -9,7 +9,8 @@ argument-hint: [feature slug, or path to a blocked task file]
 disable-model-invocation: true
 ---
 
-Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` first, then load the config. Apply
+Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` and
+`${CLAUDE_PLUGIN_ROOT}/reference/task-authoring.md` first, then load the config. Apply
 the config body section `## plan` if present.
 
 Argument: $ARGUMENTS
@@ -65,33 +66,21 @@ Do not write any files.
 
 ## Phase 3 — Draft the task list
 
-Rules for a good task:
-
-- Small: a handful of files, one concern. If you cannot name the files, it is not
-  ready to be a task.
-- Self-contained: after it is done, `verify` commands pass and nothing is half-wired.
-  Prefer "add the type, then the backend, then the UI" over one task per layer that
-  leaves the build broken in between.
-- Independently reviewable: its acceptance checks can be verified without later tasks.
-- Ordered by dependency; use `depends_on` only when the order alone does not express
-  it.
-- Maps to spec criteria: every acceptance criterion in the spec is covered by at
-  least one task; no task exists that serves none.
+Apply the rules for a good task from `task-authoring.md`. In addition, in initial
+planning: every acceptance criterion in the spec is covered by at least one task,
+and no task exists that serves none.
 
 Also draft the plan overview: approach, cross-cutting decisions (names, placement,
 patterns), and the ordered table.
 
-Before writing, check the draft against these rules yourself. If a criterion cannot
+Before writing, check the draft against the rules yourself. If a criterion cannot
 be covered by any task you can specify concretely, go back to Phase 2: it is an open
 point, not something to paper over.
 
 ## Phase 4 — Write
 
 1. `plan.md` from `${CLAUDE_PLUGIN_ROOT}/skills/plan/assets/plan-template.md`.
-2. `tasks/NN-<slug>.md` for each task from
-   `${CLAUDE_PLUGIN_ROOT}/skills/plan/assets/task-template.md`, zero-padded
-   two-digit numbers starting at `01`. Every section filled; `Notes for executor`
-   may be empty.
+2. One task file per task, as `task-authoring.md` describes.
 
 Print the task paths in order, each with its one-line goal, and the next step:
 `execute-and-review <first task path>`.
@@ -106,17 +95,11 @@ the reason the plan must change.
    could not answer, or a contradiction in the spec), fail with the refine report.
    Change no files.
 3. Decide the change: split the blocked task, reorder, add tasks, rewrite its
-   content, or drop it. Tasks with status `done` or `committed` are never changed;
-   if the only fix requires changing one, fail and say which task and why.
-   Tasks with other statuses may be edited, renumbered or dropped.
-4. Apply it:
-   - Edited tasks keep their history sections and get `status: todo`, `attempts: 0`.
-   - New tasks get the next free numbers, or renumber the not-yet-done tail if the
-     order must change. Update `depends_on` references accordingly.
-   - A task that is replaced gets `status: dropped` and a one-line note under its
-     title saying which tasks replace it.
-   - Append an entry to `## Revisions` in `plan.md`: which task was blocked, why,
-     what changed.
+   content, or drop it. Follow "Changing an existing plan" in `task-authoring.md`:
+   `done` and `committed` tasks are never changed; if the only fix requires changing
+   one, fail and say which task and why.
+4. Apply it as `task-authoring.md` describes, and append the `## Revisions` entry:
+   which task was blocked, why, what changed.
 
 Print what changed, the updated order and the next task to execute.
 
@@ -167,5 +150,8 @@ the user should run instead, or what they must fix by hand.
 - Never plan work outside the spec's scope. If the codebase needs a refactor to make
   the feature possible, that is a task of its own with its own acceptance checks,
   and it is called out in the overview.
-- All or nothing: write files only once the whole plan (or revision) is decided. A
-  failed run leaves the feature directory exactly as it was.
+- All or nothing, as `task-authoring.md` says: a failed run leaves the feature
+  directory exactly as it was.
+- Adding tasks to a plan whose tasks are all `committed` (a gap found after the
+  feature shipped) is `amend`'s job, not revise mode's. Revise mode starts from a
+  blocked task only.
