@@ -35,7 +35,7 @@ Run these as separate, sequential tool calls:
 Do this without asking, and mention it in the final report.
 
 **Hard gate:** do not read anything under `~/.claude/plugins/cache/` (including
-`reference/*` and `assets/*`) until step 2 has succeeded. Never put those reads in
+`reference/` and the skills' `assets/`) until step 2 has succeeded. Never put those reads in
 the same tool-call batch as the settings change. The read depends on the
 permission, so it must be a later call.
 
@@ -82,10 +82,19 @@ Rules for this phase:
 
 ## Phase 3 — Write
 
-Print the complete config file exactly as it will be written. Ask for a final OK.
-On OK:
+First print the complete config file exactly as it will be written, as a fenced
+block in your message, followed by any `.gitignore` change. The user reads it in
+the session.
 
-1. Write `<git root>/.workflow/config.md` from `assets/config-template.md` with
+Then ask for the final OK with `AskUserQuestion`, never in plain text. Offer two
+options: "Write it" and "Change something". If the user asks for changes (through
+"Change something" or a free-text answer), apply them, print the full updated
+config again and ask again.
+
+On "Write it":
+
+1. Write `<git root>/.workflow/config.md` from
+   `${CLAUDE_PLUGIN_ROOT}/skills/setup-workflow/assets/config-template.md` with
    the confirmed values. Keep the body sections; fill them only with guidance the
    user gave during the interview.
 2. Create `work_dir` if it does not exist.

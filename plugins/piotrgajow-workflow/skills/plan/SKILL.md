@@ -61,8 +61,9 @@ and repeat. Do not write files before approval.
 
 ## Phase 4 — Write
 
-1. `plan.md` from `assets/plan-template.md`.
-2. `tasks/NN-<slug>.md` for each task from `assets/task-template.md`, zero-padded
+1. `plan.md` from `${CLAUDE_PLUGIN_ROOT}/skills/plan/assets/plan-template.md`.
+2. `tasks/NN-<slug>.md` for each task from
+   `${CLAUDE_PLUGIN_ROOT}/skills/plan/assets/task-template.md`, zero-padded
    two-digit numbers starting at `01`. Every section filled; `Notes for executor`
    may be empty.
 
