@@ -33,13 +33,13 @@ This step is interactive. Every question with concrete options goes through
 1. The argument is a feature slug or a path to its `spec.md`. Anything else: stop and
    say what is accepted.
 2. `spec.md` exists and is `status: approved`. Otherwise stop and name the step to
-   run (`refine`).
+   run (`/piotrgajow-workflow:refine <spec path>`).
 3. `plan.md` exists. Otherwise stop: with no plan there is nothing to amend, run
-   `plan <slug>`.
+   `/piotrgajow-workflow:plan <slug>`.
 4. Read every task file's frontmatter. Stop if any task is:
    - `in-progress`, `ready-for-review` or `review-failed`: a run is in flight; finish
-     it with `execute-and-review <task path>` first.
-   - `blocked`: that is `plan <task path>` (revise mode), not amend.
+     it with `/piotrgajow-workflow:execute-and-review <task path>` first.
+   - `blocked`: that is `/piotrgajow-workflow:plan <task path>` (revise mode), not amend.
    `todo`, `done`, `committed` and `dropped` tasks are fine.
 
 ## Phase 2 — What is missing
@@ -87,8 +87,9 @@ the evidence". The user's pick is recorded as the final classification, with you
 original proposal noted if it differs.
 
 **Spec gap:** amend stops here and writes nothing. Print a short note that the block
-below is meant for `refine`, then a single fenced block the user can paste as the
-`refine` argument unchanged, in the same form `plan` uses:
+below is meant for `/piotrgajow-workflow:refine`, then a single fenced block the
+user can paste as the `/piotrgajow-workflow:refine` argument unchanged, in the same
+form `plan` uses:
 
 ````
 ```
@@ -104,7 +105,8 @@ record the answer in the spec.
 ```
 ````
 
-Tell the user to run `amend <slug>` again once the spec is updated.
+Tell the user to run `/piotrgajow-workflow:amend <slug>` again once the spec is
+updated.
 
 **Plan or execution gap:** continue.
 
@@ -141,9 +143,9 @@ Only after the draft is confirmed:
    ```
 
 Print the new task paths with their one-line goals and the next step:
-`execute-and-review <first new task path>`. Remind the user that execute expects a
-clean tree on the feature branch and recreates the branch from `git.base_branch` if
-it is gone.
+`/piotrgajow-workflow:execute-and-review <first new task path>`. Remind the user
+that execute expects a clean tree on the feature branch and recreates the branch
+from `git.base_branch` if it is gone.
 
 ## Rules
 

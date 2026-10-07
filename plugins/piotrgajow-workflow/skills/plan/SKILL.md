@@ -101,7 +101,8 @@ the reason the plan must change.
 4. Apply it as `task-authoring.md` describes, and append the `## Revisions` entry:
    which task was blocked, why, what changed.
 
-Print what changed, the updated order and the next task to execute.
+Print what changed, the updated order and the next step:
+`/piotrgajow-workflow:execute-and-review <next task path>`.
 
 ## Failure output
 
@@ -114,9 +115,9 @@ PLAN FAILED: <one-line reason>
 followed by one of the two forms below.
 
 **Spec problems** (open points from Phase 2, or a spec-caused block in revise mode):
-print a short note that the block below is meant for `refine`, then a single fenced
-block the user can paste as the `refine` argument unchanged. It must stand on its
-own, without this chat:
+print a short note that the block below is meant for `/piotrgajow-workflow:refine`,
+then a single fenced block the user can paste as the `/piotrgajow-workflow:refine`
+argument unchanged. It must stand on its own, without this chat:
 
 ````
 ```
@@ -140,7 +141,8 @@ part of the blocked task's report in the points it causes.
 
 **Anything else** (bad argument, missing config, spec not approved, existing plan,
 a fix that would change a `done` or `committed` task): print the reason and the step
-the user should run instead, or what they must fix by hand.
+the user should run instead (as a `/piotrgajow-workflow:<step>` command), or what
+they must fix by hand.
 
 ## Rules
 

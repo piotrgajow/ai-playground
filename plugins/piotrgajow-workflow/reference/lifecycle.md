@@ -11,8 +11,8 @@ The config lives at `<git root>/.workflow/config.md`. It is markdown with YAML
 frontmatter. Frontmatter is for machine-readable values; the body holds optional
 free-text guidance per step.
 
-If the config does not exist, stop and tell the user to run `setup-workflow` first.
-Never guess config values.
+If the config does not exist, stop and tell the user to run
+`/piotrgajow-workflow:setup-workflow` first. Never guess config values.
 
 Frontmatter fields:
 
@@ -133,3 +133,6 @@ run; the frontmatter is the source of truth, the message only explains it.
 - When diffing source changes, ignore everything under `work_dir`.
 - Keep reports factual and short. State what was done and what was found, not how
   hard it was.
+- When telling the user which step to run next, write it as the full command with
+  the plugin prefix and its argument, e.g. `/piotrgajow-workflow:commit <task path>`,
+  never a bare step name like `commit`.

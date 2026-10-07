@@ -82,7 +82,7 @@ Create `<work_dir>/<slug>/spec.md` from
 `${CLAUDE_PLUGIN_ROOT}/skills/refine/assets/spec-template.md`. Every section filled.
 Acceptance criteria numbered. Set `status: approved`.
 
-Print the spec path and the next step: `plan <slug>`.
+Print the spec path and the next step: `/piotrgajow-workflow:plan <slug>`.
 
 ## Update mode
 
@@ -113,8 +113,9 @@ again.
      with the alternatives rejected.
    - Keep `status: approved` and the slug.
 
-Print the spec path and the next step: `plan <blocked task path>` if the report
-named one, otherwise `plan <slug>`. If `plan.md` exists and no blocked task was
+Print the spec path and the next step:
+`/piotrgajow-workflow:plan <blocked task path>` if the report named one, otherwise
+`/piotrgajow-workflow:plan <slug>`. If `plan.md` exists and no blocked task was
 named, warn that the existing plan was written against the old spec and that `plan`
 changes it only through a blocked task.
 

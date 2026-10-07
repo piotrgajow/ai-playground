@@ -67,10 +67,10 @@ made in this run, the task's current status, and the next step.
 
 | Outcome | Next step |
 |---|---|
-| completed | `commit <task path>` |
-| blocked | `plan <task path>` (revise mode); point at the report section that explains the block |
-| retry limit reached | a human reads the latest `## Review` section in the task file and decides: fix by hand, raise `retry_limit`, or run `plan` on the task |
-| error | quote the subagent's error lines; the human fixes the cause (branch, dirty tree, config, failing verify) and reruns `execute-and-review <task path>` |
+| completed | `/piotrgajow-workflow:commit <task path>` |
+| blocked | `/piotrgajow-workflow:plan <task path>` (revise mode); point at the report section that explains the block |
+| retry limit reached | a human reads the latest `## Review` section in the task file and decides: fix by hand, raise `retry_limit`, or run `/piotrgajow-workflow:plan <task path>` |
+| error | quote the subagent's error lines; the human fixes the cause (branch, dirty tree, config, failing verify) and reruns `/piotrgajow-workflow:execute-and-review <task path>` |
 
 ## Rules
 

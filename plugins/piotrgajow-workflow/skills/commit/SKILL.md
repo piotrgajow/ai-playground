@@ -28,8 +28,9 @@ Task file: $ARGUMENTS
 6. Build the subject from `git.commit_format` with `{slug}`, `{task_id}` (the task
    file name without extension) and `{task_title}` (the title line without its
    number). Body: the task's `## Goal` text. Do not add anything else to the message.
-7. Commit. Print the short hash, the subject, and the next task to execute, or
-   "all tasks committed" when none is left in `todo`.
+7. Commit. Print the short hash, the subject, and the next step,
+   `/piotrgajow-workflow:execute-and-review <next task path>`, or "all tasks
+   committed" when none is left in `todo`.
 
 ## Rules
 

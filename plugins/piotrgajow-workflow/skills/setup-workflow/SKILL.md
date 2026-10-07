@@ -101,7 +101,7 @@ On "Write it":
 3. If `work_dir_gitignored` is true, add `work_dir` to `.gitignore` unless already
    covered.
 
-Report what was written and how to start: `refine <ticket>`.
+Report what was written and how to start: `/piotrgajow-workflow:refine <ticket>`.
 
 ## Rules
 
