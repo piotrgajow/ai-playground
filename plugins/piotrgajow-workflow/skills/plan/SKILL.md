@@ -6,7 +6,6 @@ description: >
   blocked. Writes `<work_dir>/<slug>/plan.md` and `tasks/NN-<slug>.md`.
 argument-hint: [feature slug, or path to a blocked task file]
 disable-model-invocation: true
-allowed-tools: Read(/${CLAUDE_PLUGIN_ROOT}/**)
 ---
 
 Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` first, then load the config. Apply

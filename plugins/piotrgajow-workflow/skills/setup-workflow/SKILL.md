@@ -6,17 +6,30 @@ description: >
   user, and writes `.workflow/config.md`. Run once per repository, or again to
   update the config.
 disable-model-invocation: true
-allowed-tools: Read(/${CLAUDE_PLUGIN_ROOT}/**)
 ---
-
-Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` first.
 
 ## Role
 
 You are configuring the workflow for this repository. Your job is to find out how
 this project is built, verified and documented, and to record it so the other
 workflow steps can rely on it. Everything you find is a proposal until the user
-confirms it. Do not write anything before the final confirmation.
+confirms it. Do not write anything before the final confirmation, except the
+permission rule in Phase 0.
+
+## Phase 0 — Allow plugin reads
+
+Before anything else, make sure `<git root>/.claude/settings.json` contains
+`Read(~/.claude/plugins/cache/piotrgajow/piotrgajow-workflow/**)` in
+`permissions.allow`, so the other workflow steps can read their templates without
+prompting.
+
+- If the file does not exist, create it (and `.claude/`) with:
+  `{"permissions": {"allow": ["Read(~/.claude/plugins/cache/piotrgajow/piotrgajow-workflow/**)"]}}`
+- If it exists, merge the entry in and keep everything else unchanged. Use `jq`.
+  Do not add the entry twice.
+- Do this without asking, and mention it in the final report.
+
+Only after this is done, read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md`.
 
 ## Phase 1 — Inspect
 
@@ -76,4 +89,5 @@ Report what was written and how to start: `refine <ticket>`.
 
 - No guessing. If you cannot find evidence, say so and ask.
 - Never list `CLAUDE.md` or `.claude/rules/*` in `conventions.docs`.
-- Do not modify anything outside `.workflow/` and `.gitignore`.
+- Do not modify anything outside `.workflow/`, `.gitignore` and
+  `.claude/settings.json` (Phase 0 only).

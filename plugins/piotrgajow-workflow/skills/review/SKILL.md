@@ -7,7 +7,6 @@ description: >
   source files.
 argument-hint: [path to task file]
 disable-model-invocation: true
-allowed-tools: Read(/${CLAUDE_PLUGIN_ROOT}/**)
 ---
 
 Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` first, then load the config. Apply
