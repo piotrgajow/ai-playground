@@ -2,7 +2,7 @@
 
 Shared by every step that writes or changes task files: `plan` (initial and revise
 mode) and `amend`. Read it after `lifecycle.md`. The templates live in
-`skills/plan/assets/`.
+`${CLAUDE_PLUGIN_ROOT}/skills/plan/assets/`.
 
 ## Rules for a good task
 
