@@ -17,9 +17,9 @@ Task file: $ARGUMENTS
 1. Read the task file. Status must be `done`; otherwise stop and say which status
    you expected.
 2. Check you are on the feature branch (`git.branch_format` with the feature slug).
-   If not, stop and ask.
+   If not, stop and ask with `AskUserQuestion`.
 3. Compare `git status` (ignoring `work_dir`) against the task's `files`:
-   - Files changed but not listed: stop and show them. The user decides whether to
+   - Files changed but not listed: stop and show them. Ask with `AskUserQuestion` whether to
      add them to the task's `files` or leave them out.
    - Files listed but unchanged: ignore.
 4. Set `status: committed` in the task frontmatter.

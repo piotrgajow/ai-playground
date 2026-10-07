@@ -33,9 +33,9 @@ check, and stop with a clear message if any fails:
   `committed` (or `dropped`).
 - Git: you are on the feature branch (`git.branch_format` with the feature slug).
   If you are on `git.base_branch`, create the feature branch from it. If you are on
-  any other branch, stop and ask.
+  any other branch, stop and ask with `AskUserQuestion`.
 - For a `todo` task the working tree must be clean apart from `work_dir`. If it is
-  dirty, stop and ask; another task's changes may be uncommitted. For
+  dirty, stop and ask with `AskUserQuestion`; another task's changes may be uncommitted. For
   `review-failed` a dirty tree is expected: it holds your previous attempt.
 
 Then update the frontmatter: `status: in-progress`, `attempts` incremented by one.

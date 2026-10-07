@@ -24,7 +24,7 @@ detail is welcome only when it changes scope or acceptance.
 
 1. Resolve the ticket. If it is a link or id, fetch it with the tools available
    (GitHub tools, `gh`, web fetch). If it is text, use it as is. If it cannot be
-   resolved, say so and ask the user to paste the content.
+   resolved, say so and ask the user to paste the content (plain text; it is free-form).
 2. Read every path in `docs` from the config.
 3. Skim the codebase only as far as needed to understand current behaviour the ticket
    refers to. Do not plan changes.
@@ -35,7 +35,9 @@ as an assumption in Phase 2 and let them correct it.
 
 ## Phase 2 — Interview
 
-One question at a time. Cover, in this order, skipping anything already settled:
+One question at a time. Ask each with `AskUserQuestion` when you can offer concrete
+options (proposed scope items, out-of-scope candidates, draft acceptance criteria,
+edge cases); use a plain-text question only for free-form answers. Cover, in this order, skipping anything already settled:
 
 1. **Problem and goal** — what is wrong or missing today, for whom, and what changes
    when this ships.
@@ -52,7 +54,7 @@ One question at a time. Cover, in this order, skipping anything already settled:
 6. **Dependencies and constraints** — other features, deadlines, migrations,
    compatibility.
 
-Vague answers get a follow-up with concrete options to pick from. If the user says
+Vague answers get an `AskUserQuestion` follow-up with concrete options to pick from. If the user says
 "just write it", write what you have and mark every unsettled point clearly in
 `## Decisions` as "assumed: ...", then tell them which ones to check.
 
@@ -63,8 +65,9 @@ come back with questions.
 
 1. Propose a kebab-case slug derived from the feature title. Check that
    `<work_dir>/<slug>` does not already exist; if it does, propose another.
-2. Summarise the spec in plain language, one short paragraph per section, and ask:
-   "Does this capture it? Anything to correct before I write the spec?"
+2. Summarise the spec in plain language, one short paragraph per section, then ask with `AskUserQuestion` whether it
+   captures the feature (options: write the spec, something to correct). If they
+   correct something, ask what and repeat.
 
 ## Phase 4 — Write
 
@@ -76,7 +79,7 @@ Print the spec path and the next step: `plan <slug>`.
 
 ## Rules
 
-- One question at a time.
+- One question at a time, via `AskUserQuestion` where options exist.
 - Business language in the spec. No file names, no class names, unless the user
   insists they are part of the requirement.
 - Do not write the spec before Phase 3 is confirmed.

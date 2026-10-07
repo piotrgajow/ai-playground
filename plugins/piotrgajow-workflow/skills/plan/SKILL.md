@@ -16,7 +16,7 @@ Argument: $ARGUMENTS
 Mode:
 - The argument is a feature slug (or a path to `spec.md`) → **initial planning**.
 - The argument is a path to a task file with `status: blocked` → **revise**.
-- Anything else → stop and ask.
+- Anything else → stop and ask with `AskUserQuestion`.
 
 ## Role
 
@@ -55,8 +55,9 @@ patterns), and the ordered table.
 ## Phase 3 — Confirm
 
 Present the overview and the task list as an outline in chat: for each task its
-title, files and one-line goal. Ask the user to approve or adjust. Do not write
-files before approval.
+title, files and one-line goal. Then ask with `AskUserQuestion` whether to approve
+or adjust (options: approve, adjust the tasks); if they adjust, ask what to change
+and repeat. Do not write files before approval.
 
 ## Phase 4 — Write
 
