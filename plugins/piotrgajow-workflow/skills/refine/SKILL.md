@@ -3,8 +3,9 @@ name: refine
 description: >
   Turn a ticket or requirement into an approved feature spec through an interview.
   Business focus: scope, out of scope, acceptance criteria. Ends only when nothing is
-  ambiguous. Writes `<work_dir>/<slug>/spec.md`.
-argument-hint: [ticket text, id or link]
+  ambiguous. Writes `<work_dir>/<slug>/spec.md`. Also updates an existing spec with
+  the open points reported by a failed `plan` run.
+argument-hint: [ticket text, id or link, or a failed plan report]
 disable-model-invocation: true
 ---
 
@@ -12,6 +13,12 @@ Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` first, then load the config.
 the config body section `## refine` if present.
 
 Ticket: $ARGUMENTS
+
+Mode:
+- The argument names an existing `spec.md` under `work_dir` (a pasted `plan` failure
+  report starting with "Update the existing spec", or a bare path) → **update**. Skip
+  to the Update mode section.
+- Anything else → **new spec**, Phases 1–4 below.
 
 ## Role
 
@@ -77,10 +84,44 @@ Acceptance criteria numbered. Set `status: approved`.
 
 Print the spec path and the next step: `plan <slug>`.
 
+## Update mode
+
+Input is an existing spec plus, usually, the numbered open points from a failed
+`plan` run. The goal is to settle exactly those points, not to refine the feature
+again.
+
+1. Read the spec. If it does not exist, stop and say so. Take the slug from its
+   frontmatter. From the report, note each numbered point and the blocked task path
+   if one is named. If the argument is a bare path with no points, ask the user what
+   needs to change.
+2. Read the `docs` from the config and skim the codebase only as far as the points
+   require.
+3. Interview, one point at a time, in the report's order. Use the planner's "Options
+   seen" as `AskUserQuestion` options, adding any you see. Do not reopen parts of the
+   spec the report does not mention. If an answer affects other sections (scope, out
+   of scope, other criteria), raise that before moving on. If the user says the spec
+   already means one specific thing, the wording still changes so the next reader
+   cannot misread it.
+4. Summarise the changes per point, the old text and the new, then ask with
+   `AskUserQuestion` whether to apply them (options: update the spec, something to
+   correct). If they correct something, ask what and repeat.
+5. Edit `spec.md` in place:
+   - Acceptance criterion numbers never change, because tasks refer to them. Reword
+     a criterion where it stands; add new ones after the last number; replace a
+     removed one with `<n>. (removed: <reason>)`.
+   - Append one `## Decisions` entry per settled point, marked `(update <date>)`,
+     with the alternatives rejected.
+   - Keep `status: approved` and the slug.
+
+Print the spec path and the next step: `plan <blocked task path>` if the report
+named one, otherwise `plan <slug>`. If `plan.md` exists and no blocked task was
+named, warn that the existing plan was written against the old spec and that `plan`
+changes it only through a blocked task.
+
 ## Rules
 
 - One question at a time, via `AskUserQuestion` where options exist.
 - Business language in the spec. No file names, no class names, unless the user
   insists they are part of the requirement.
-- Do not write the spec before Phase 3 is confirmed.
+- Do not write the spec before it is confirmed (Phase 3, or step 4 of Update mode).
 - Never invent requirements. Ambiguity goes back to the user, not into the spec.
