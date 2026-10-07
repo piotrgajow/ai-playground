@@ -1,7 +1,8 @@
 # Workflow lifecycle reference
 
-Every workflow skill reads this file first. It defines where things live, the file
-formats, the task status machine and the rules that are shared by all steps.
+Every workflow step reads this file first, whether it runs as a skill in the main
+session or as a subagent. It defines where things live, the file formats, the task
+status machine and the rules that are shared by all steps.
 
 ## Config
 
@@ -100,7 +101,19 @@ todo → in-progress → ready-for-review → done → committed
 ```
 
 Retry rule: `attempts` counts every execute run. Execute refuses to start when
-`attempts > retry_limit` and tells the user to step in.
+`attempts > retry_limit`, and the `execute-and-review` orchestrator stops before
+spawning it, telling the user to step in.
+
+## Subagent steps
+
+`execute` and `review` are subagents (`agents/execute.md`, `agents/review.md`),
+driven by the `execute-and-review` skill. They run in a fresh context with only the
+prompt, which names the task file, and they cannot ask the user anything. Where a
+skill would ask, a subagent stops and reports an error instead.
+
+A subagent's final message is for the orchestrator: a few lines at most, the last
+one `RESULT: <status>`. The orchestrator still re-reads the task file after every
+run; the frontmatter is the source of truth, the message only explains it.
 
 ## Shared rules
 
@@ -110,6 +123,8 @@ Retry rule: `attempts` counts every execute run. Execute refuses to start when
   history from a previous step.
 - When a step is asked to run on a task in the wrong status, stop and say which
   status it expected.
+- A subagent step never asks the user anything; it stops with an error and lets the
+  orchestrator or the human decide.
 - When diffing source changes, ignore everything under `work_dir`.
 - Keep reports factual and short. State what was done and what was found, not how
   hard it was.

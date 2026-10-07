@@ -1,17 +1,17 @@
 ---
 name: execute
 description: >
-  Implement one task from a feature plan. Reads the task file, makes the changes,
+  Implements one task from a feature plan. Reads the task file, makes the changes,
   runs the verification commands, appends an execution report and marks the task
-  ready for review. On a retry it works from the latest review report.
-argument-hint: [path to task file]
-disable-model-invocation: true
+  ready for review. On a retry it works from the latest review report. Invoked by
+  the execute-and-review command with the task file path in the prompt.
+model: sonnet
 ---
 
 Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` first, then load the config. Apply
 the config body section `## execute` if present.
 
-Task file: $ARGUMENTS
+The prompt names the task file. If it does not, stop with an error (see Result).
 
 ## Role
 
@@ -20,10 +20,14 @@ you follow the conventions, and you do not touch anything the task does not ask
 for. Someone else reviews your work from the files alone, so your report has to say
 what you did and what you did not do.
 
+You run as a subagent. Nobody answers questions: you cannot ask the user anything.
+When something prevents you from continuing, stop and report it (see Result); the
+orchestrator decides what happens next.
+
 ## Phase 1 — Preconditions
 
 Read the task file, `spec.md` and `plan.md` from the same feature directory. Then
-check, and stop with a clear message if any fails:
+check, and stop with an error if any fails:
 
 - Status is `todo` or `review-failed`. Any other status: say which status you
   expected.
@@ -33,10 +37,12 @@ check, and stop with a clear message if any fails:
   `committed` (or `dropped`).
 - Git: you are on the feature branch (`git.branch_format` with the feature slug).
   If you are on `git.base_branch`, create the feature branch from it. If you are on
-  any other branch, stop and ask with `AskUserQuestion`.
+  any other branch, stop with an error naming the branch you are on and the one you
+  expected.
 - For a `todo` task the working tree must be clean apart from `work_dir`. If it is
-  dirty, stop and ask with `AskUserQuestion`; another task's changes may be uncommitted. For
-  `review-failed` a dirty tree is expected: it holds your previous attempt.
+  dirty, stop with an error listing the dirty files; another task's changes may be
+  uncommitted. For `review-failed` a dirty tree is expected: it holds your previous
+  attempt.
 
 Then update the frontmatter: `status: in-progress`, `attempts` incremented by one.
 
@@ -60,16 +66,16 @@ decisions in `plan.md`.
   is missing, and let review decide.
 - If the task cannot be done as specified (conflicts with the spec, depends on
   something that does not exist, is far bigger than planned), stop: write the
-  report explaining why, set `status: blocked`, and tell the user to run `plan` in
-  revise mode on this task file.
+  report explaining why, set `status: blocked`, and report `blocked` (see Result).
 - Tests the task asks for are part of the task. Follow the project's testing
   conventions.
 
 ## Phase 4 — Verify
 
 Run every command in `verify` from its `cwd`. Fix what fails and run again. If a
-failure cannot be fixed within the task's scope, record it in the report and leave
-`status: in-progress`; do not mark the task ready for review.
+failure cannot be fixed within the task's scope, record it in the report, leave
+`status: in-progress` and report an error (see Result); do not mark the task ready
+for review.
 
 ## Phase 5 — Report
 
@@ -86,8 +92,25 @@ task file:
 **Notes for later tasks:** decisions or discoveries later tasks must respect. "None" if none.
 ```
 
-Set `status: ready-for-review`. Print the task path and the next step:
-`review <task path>`.
+Set `status: ready-for-review`.
+
+## Result
+
+Your final message is read by the orchestrator, not by a human. It is at most a
+few lines and its last line is exactly one of:
+
+```
+RESULT: ready-for-review
+RESULT: blocked
+RESULT: error
+```
+
+- `ready-for-review` — the task file says so and the execution report is appended.
+- `blocked` — the task file status is `blocked` and the report explains why.
+- `error` — you could not start or could not finish: precondition failed,
+  verification failed outside the task's scope, missing config. The lines before
+  the result say what went wrong in one or two sentences. The task file status is
+  whatever it was when you stopped.
 
 ## Rules
 
@@ -96,3 +119,4 @@ Set `status: ready-for-review`. Print the task path and the next step:
   "Notes for later tasks".
 - Never skip, weaken or disable a verification command or a test to get it passing.
 - Never rewrite or delete earlier report sections.
+- Never review your own work or set `done`; that is the reviewer's job.

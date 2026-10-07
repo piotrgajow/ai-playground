@@ -94,7 +94,7 @@ point, not something to paper over.
    may be empty.
 
 Print the task paths in order, each with its one-line goal, and the next step:
-`execute <first task path>`.
+`execute-and-review <first task path>`.
 
 ## Revise mode
 
