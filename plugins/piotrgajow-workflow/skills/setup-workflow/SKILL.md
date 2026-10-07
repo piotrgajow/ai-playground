@@ -18,22 +18,31 @@ permission rule in Phase 0.
 
 ## Phase 0 — Allow plugin reads
 
-Before anything else, make sure `<git root>/.claude/settings.json` contains
+Goal: `<git root>/.claude/settings.json` contains
 `Read(~/.claude/plugins/cache/piotrgajow/piotrgajow-workflow/**)` in
 `permissions.allow`, so the other workflow steps can read their templates without
 prompting.
 
-- If the file does not exist, create it (and `.claude/`) with:
-  `{"permissions": {"allow": ["Read(~/.claude/plugins/cache/piotrgajow/piotrgajow-workflow/**)"]}}`
-- If it exists, merge the entry in and keep everything else unchanged. Use `jq`.
-  Do not add the entry twice.
-- Do this without asking, and mention it in the final report.
+Run these as separate, sequential tool calls:
 
-Only after this is done, read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md`.
+1. Create or merge the entry. Use `jq`, keep everything else unchanged and do not
+   add the entry twice. If the file does not exist, create it (and `.claude/`)
+   with
+   `{"permissions": {"allow": ["Read(~/.claude/plugins/cache/piotrgajow/piotrgajow-workflow/**)"]}}`.
+   If `jq` fails, stop and report the error to the user.
+2. Verify with `jq` that the entry is present.
+
+Do this without asking, and mention it in the final report.
+
+**Hard gate:** do not read anything under `~/.claude/plugins/cache/` (including
+`reference/*` and `assets/*`) until step 2 has succeeded. Never put those reads in
+the same tool-call batch as the settings change. The read depends on the
+permission, so it must be a later call.
 
 ## Phase 1 — Inspect
 
-Find the git root. If `.workflow/config.md` already exists, read it: this is an
+First, read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md`. Then find the git
+root. If `.workflow/config.md` already exists, read it: this is an
 update, and existing values are the starting proposals.
 
 Look for evidence for each config field:
@@ -87,6 +96,8 @@ Report what was written and how to start: `refine <ticket>`.
 
 ## Rules
 
+- Phase 0 runs strictly before any read of plugin files. Do not parallelize it
+  with anything.
 - No guessing. If you cannot find evidence, say so and ask.
 - Never list `CLAUDE.md` or `.claude/rules/*` in `conventions.docs`.
 - Do not modify anything outside `.workflow/`, `.gitignore` and
