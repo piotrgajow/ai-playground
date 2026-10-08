@@ -45,18 +45,19 @@ Never stash, reset or discard anything to make a checkout work.
 2. If `work_dir_gitignored` is true there is nothing to commit: report the branch
    state (created, or already on it) and skip to step 6.
 3. List the uncommitted files, modified and untracked, under the feature directory.
-   None → say so and skip to step 6. Stage all of them and nothing else. Source
+   None → say so and skip to step 6. Split them into two groups: the spec
+   (`spec.md`) and the plan (`plan.md` and everything under `tasks/`). Source
    changes of a task in flight stay in the working tree for
    `/piotrgajow-workflow:commit <task path>`.
-4. Build the subject from `git.docs_commit_format` with `{slug}` and `{summary}`.
-   `{summary}` is built from the staged files, parts joined with ` and ` in this
-   order:
-   - `spec.md` new → `spec`; changed → `update spec`
-   - `plan.md` new → `plan`; changed → `revise plan`
-   - only task files, `plan.md` unchanged → `update tasks`
+4. For each non-empty group, spec first: stage only that group's files and build
+   the subject from `git.docs_commit_format` with `{slug}` and `{summary}`:
+   - spec group: `spec.md` new → `spec`; changed → `update spec`
+   - plan group: `plan.md` new → `plan`; changed → `revise plan`; `plan.md`
+     unchanged, only task files → `update tasks`
 
    No body.
-5. Commit. Print the short hash and the subject.
+5. Commit each group separately, in that order. Print the short hash and the
+   subject of every commit made.
 6. Print whether the branch was created, and the next step:
    - `plan.md` does not exist → `/piotrgajow-workflow:plan <slug>`
    - otherwise, for the first task in order that is neither `committed` nor
@@ -93,8 +94,9 @@ Never stash, reset or discard anything to make a checkout work.
 - Never push.
 - Never amend or rewrite history.
 - Never add a `Co-Authored-By:` line or any other attribution to the commit message.
-- Feature mode stages only files under the feature directory. Task mode stages only
-  the task's `files` and the task file itself.
+- Feature mode stages only files under the feature directory, and never mixes the
+  spec and the plan in one commit. Task mode stages only the task's `files` and the
+  task file itself.
 - The only branch change made without asking is creating the feature branch from
   `git.base_branch` in feature mode. Every other switch or creation goes through
   `AskUserQuestion`; task mode never creates a branch.

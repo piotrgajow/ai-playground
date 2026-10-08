@@ -74,6 +74,8 @@ Commits on the branch, in order:
 3. one commit per task — `commit <task path>` after `execute-and-review`
 
 Document commits use `git.docs_commit_format`, task commits `git.commit_format`.
+The spec and the plan are always separate commits: when both are pending,
+`commit <slug>` makes two.
 When `work_dir_gitignored` is true there are no document commits; `commit <slug>`
 then only creates or checks the branch.
 
