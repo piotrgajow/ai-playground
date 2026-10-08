@@ -12,7 +12,7 @@ verify:
 git:
   base_branch: main
   branch_format: feature/{slug}
-  commit_format: "feat({slug}): {task_title}"
+  task_commit_format: "feat({slug}): {task_title}"
   docs_commit_format: "docs({slug}): {summary}"
 tickets:
   source: text

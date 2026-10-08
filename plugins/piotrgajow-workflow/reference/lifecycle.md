@@ -25,7 +25,7 @@ Frontmatter fields:
 | `conventions.skills` | List of skill names to invoke before changing or reviewing code |
 | `verify` | List of `{ name, command, cwd }` verification commands (lint, typecheck, test, build) |
 | `git.branch_format` | Feature branch name pattern; placeholders `{slug}` |
-| `git.commit_format` | Commit subject pattern for task commits; placeholders `{slug}`, `{task_id}`, `{task_title}` |
+| `git.task_commit_format` | Commit subject pattern for task commits; placeholders `{slug}`, `{task_id}`, `{task_title}` |
 | `git.docs_commit_format` | Commit subject pattern for spec, plan and task-file commits made by `commit <slug>`; placeholders `{slug}`, `{summary}` |
 | `git.base_branch` | Branch feature branches are created from |
 | `tickets.source` | Where tickets come from: `text`, `github-issues`, `url` or a short description |
@@ -73,7 +73,7 @@ Commits on the branch, in order:
    `plan` revise or `amend` run)
 3. one commit per task — `commit <task path>` after `execute-and-review`
 
-Document commits use `git.docs_commit_format`, task commits `git.commit_format`.
+Document commits use `git.docs_commit_format`, task commits `git.task_commit_format`.
 The spec and the plan are always separate commits: when both are pending,
 `commit <slug>` makes two.
 When `work_dir_gitignored` is true there are no document commits; `commit <slug>`

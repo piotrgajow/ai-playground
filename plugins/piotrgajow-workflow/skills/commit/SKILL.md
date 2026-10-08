@@ -77,7 +77,7 @@ Never stash, reset or discard anything to make a checkout work.
 3. Set `status: committed` in the task frontmatter.
 4. Stage the task's `files`. If `work_dir_gitignored` is false, also stage the task
    file.
-5. Build the subject from `git.commit_format` with `{slug}`, `{task_id}` (the task
+5. Build the subject from `git.task_commit_format` with `{slug}`, `{task_id}` (the task
    file name without extension) and `{task_title}` (the title line without its
    number). Body: the task's `## Goal` text. Do not add anything else to the message.
    **No `Co-Authored-By:` trailer and no other attribution line**, even if your
@@ -100,5 +100,6 @@ Never stash, reset or discard anything to make a checkout work.
 - The only branch change made without asking is creating the feature branch from
   `git.base_branch` in feature mode. Every other switch or creation goes through
   `AskUserQuestion`; task mode never creates a branch.
-- If `git.docs_commit_format` is missing from the config, stop and tell the user to
-  add it (see the config template) or rerun `/piotrgajow-workflow:setup-workflow`.
+- If `git.task_commit_format` or `git.docs_commit_format` is missing from the
+  config, stop and tell the user to add it (see the config template) or rerun
+  `/piotrgajow-workflow:setup-workflow`.
