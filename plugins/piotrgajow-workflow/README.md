@@ -17,6 +17,7 @@ that calls two subagents, each pinned to its own model.
 | `execute-and-review <task path>` | skill (orchestrator) | task file | runs the loop below, stops with an outcome | any; it only spawns subagents and reads the task file |
 | `execute` | subagent | task, conventions, latest review | source changes, execution report, status `ready-for-review` | Sonnet 5.5 (Opus 5.5 on a retry) |
 | `review` | subagent | task, diff, verify commands | review report, status `done` / `review-failed` / `blocked` | Opus 5.5 |
+| `commit <slug>` | skill | feature directory | feature branch (first run, from `git.base_branch`), one commit of the spec or the plan + tasks | Haiku 4.5 |
 | `commit <task path>` | skill | task with status `done` | one commit, status `committed` | Haiku 4.5 |
 
 Why these:
@@ -34,6 +35,22 @@ For skills, switch with `/model` before invoking. The `execute` and `review`
 subagents carry their model in the `model` field of `agents/execute.md` and
 `agents/review.md`; the retry bump is a per-invocation override made by the
 orchestrator.
+
+## Feature flow
+
+```
+refine <ticket>                 → spec.md                                   (human gate)
+commit <slug>                   → feature branch created, spec committed
+plan <slug>                     → plan.md + tasks/                          (human gate)
+commit <slug>                   → plan and tasks committed
+execute-and-review <task path>  → task implemented and reviewed            (human gate)
+commit <task path>              → task committed            … repeat per task
+```
+
+The branch is created once, by the first `commit <slug>`. Every later step only
+checks it is the current branch. After a `plan` revise or an `amend` run, `commit
+<slug>` again before the next task. With `work_dir_gitignored: true` the document
+commits are skipped and `commit <slug>` only handles the branch.
 
 ## The execute → review loop
 
@@ -95,8 +112,9 @@ changing task files, shared by `plan` and `amend`, are in
 Steps apply `CLAUDE.md` and `.claude/rules/` automatically, plus the documents and
 skills listed under `conventions` in the config.
 
-Human gates for now: after `refine`, after `plan`, after each `execute-and-review`
-run (before `commit`), and inside `amend` (gap classification and task draft).
+Human gates for now: after `refine` and after `plan` (each ends with
+`commit <slug>`), after each `execute-and-review` run (before `commit <task path>`),
+and inside `amend` (gap classification and task draft).
 
 ## Later
 

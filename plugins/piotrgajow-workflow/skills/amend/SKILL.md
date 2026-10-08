@@ -61,7 +61,7 @@ Read, in this order:
    tasks claim the criteria found in step 1, and what their `## Changes` say.
 3. The shipped code: the files listed in those tasks, and the feature's diff against
    `git.base_branch` (`git diff <base_branch>...HEAD` on the feature branch, or the
-   commits whose subject matches `git.commit_format` for this slug when the branch is
+   commits whose subject matches `git.task_commit_format` for this slug when the branch is
    gone). Confirm from the code, not from the reports, what the feature does today.
 4. Conventions: ambient instructions, `conventions.docs`, and invoke every skill in
    `conventions.skills`. You need them to write tasks executors can follow.
@@ -142,10 +142,11 @@ Only after the draft is confirmed:
      Added: <task paths>
    ```
 
-Print the new task paths with their one-line goals and the next step:
-`/piotrgajow-workflow:execute-and-review <first new task path>`. Remind the user
-that execute expects a clean tree on the feature branch and recreates the branch
-from `git.base_branch` if it is gone.
+Print the new task paths with their one-line goals and the next steps:
+`/piotrgajow-workflow:commit <slug>` to commit the new tasks (it also recreates the
+feature branch from `git.base_branch` when the old one was deleted after the merge),
+then `/piotrgajow-workflow:execute-and-review <first new task path>`. Remind the
+user that execute expects a clean tree on the feature branch.
 
 ## Rules
 
