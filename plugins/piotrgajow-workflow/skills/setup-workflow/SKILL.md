@@ -54,7 +54,7 @@ Look for evidence for each config field:
 | `conventions.docs` | Convention-like documents that are not `CLAUDE.md` or `.claude/rules/*` (those load ambiently and must not be listed) |
 | `conventions.skills` | `.claude/skills/*/SKILL.md` whose description reads like a how-to for changing code |
 | `git.base_branch` | Default branch from `git symbolic-ref refs/remotes/origin/HEAD` or `main`/`master` presence |
-| `git.branch_format`, `git.commit_format` | Recent `git log` subjects and branch names |
+| `git.branch_format`, `git.commit_format`, `git.docs_commit_format` | Recent `git log` subjects and branch names; `docs_commit_format` is the subject for spec and plan commits, so it follows the same convention with `{summary}` in place of the task title |
 | `work_dir`, `work_dir_gitignored` | Existing `.workflow/` dir, `.gitignore` |
 | `tickets.source` | Issue templates, links in README, mentions of Jira/Linear/GitHub issues |
 

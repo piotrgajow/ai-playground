@@ -142,10 +142,11 @@ Only after the draft is confirmed:
      Added: <task paths>
    ```
 
-Print the new task paths with their one-line goals and the next step:
-`/piotrgajow-workflow:execute-and-review <first new task path>`. Remind the user
-that execute expects a clean tree on the feature branch and recreates the branch
-from `git.base_branch` if it is gone.
+Print the new task paths with their one-line goals and the next steps:
+`/piotrgajow-workflow:commit <slug>` to commit the new tasks (it also recreates the
+feature branch from `git.base_branch` when the old one was deleted after the merge),
+then `/piotrgajow-workflow:execute-and-review <first new task path>`. Remind the
+user that execute expects a clean tree on the feature branch.
 
 ## Rules
 

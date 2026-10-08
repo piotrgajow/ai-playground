@@ -36,9 +36,9 @@ check, and stop with an error if any fails:
 - Every task in `depends_on`, and every lower-numbered task, is `done` or
   `committed` (or `dropped`).
 - Git: you are on the feature branch (`git.branch_format` with the feature slug).
-  If you are on `git.base_branch`, create the feature branch from it. If you are on
-  any other branch, stop with an error naming the branch you are on and the one you
-  expected.
+  Otherwise stop with an error naming the branch you are on and the one you
+  expected. Never create or switch branches: the branch is created by
+  `commit <slug>` right after `refine`.
 - For a `todo` task the working tree must be clean apart from `work_dir`. If it is
   dirty, stop with an error listing the dirty files; another task's changes may be
   uncommitted. For `review-failed` a dirty tree is expected: it holds your previous

@@ -25,7 +25,8 @@ Frontmatter fields:
 | `conventions.skills` | List of skill names to invoke before changing or reviewing code |
 | `verify` | List of `{ name, command, cwd }` verification commands (lint, typecheck, test, build) |
 | `git.branch_format` | Feature branch name pattern; placeholders `{slug}` |
-| `git.commit_format` | Commit subject pattern; placeholders `{slug}`, `{task_id}`, `{task_title}` |
+| `git.commit_format` | Commit subject pattern for task commits; placeholders `{slug}`, `{task_id}`, `{task_title}` |
+| `git.docs_commit_format` | Commit subject pattern for spec, plan and task-file commits made by `commit <slug>`; placeholders `{slug}`, `{summary}` |
 | `git.base_branch` | Branch feature branches are created from |
 | `tickets.source` | Where tickets come from: `text`, `github-issues`, `url` or a short description |
 | `retry_limit` | Max re-executions of a task after a failed review before a human must step in |
@@ -55,6 +56,26 @@ Conventions a step must apply are the union of:
 
 The task file path is the task id. The numeric prefix is the execution order.
 Nothing else in the repo refers to a task by any other identifier.
+
+## Feature branch
+
+Every feature lives on its own branch, `git.branch_format` with the slug, created
+from `git.base_branch`. The branch is created by the first `commit <slug>` run after
+`refine` (and again by `commit <slug>` after `amend`, when the merged branch was
+deleted). Every later step that touches git (`execute`,
+`commit` in both modes) only checks that it is the current branch and stops
+otherwise. No other step creates, switches or deletes branches.
+
+Commits on the branch, in order:
+
+1. the spec — `commit <slug>` after `refine`
+2. the plan and its task files — `commit <slug>` after `plan` (and after every
+   `plan` revise or `amend` run)
+3. one commit per task — `commit <task path>` after `execute-and-review`
+
+Document commits use `git.docs_commit_format`, task commits `git.commit_format`.
+When `work_dir_gitignored` is true there are no document commits; `commit <slug>`
+then only creates or checks the branch.
 
 ## Task file
 

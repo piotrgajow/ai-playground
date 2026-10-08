@@ -82,8 +82,9 @@ point, not something to paper over.
 1. `plan.md` from `${CLAUDE_PLUGIN_ROOT}/skills/plan/assets/plan-template.md`.
 2. One task file per task, as `task-authoring.md` describes.
 
-Print the task paths in order, each with its one-line goal, and the next step:
-`execute-and-review <first task path>`.
+Print the task paths in order, each with its one-line goal, and the next steps:
+`/piotrgajow-workflow:commit <slug>` to commit the plan, then
+`/piotrgajow-workflow:execute-and-review <first task path>`.
 
 ## Revise mode
 
@@ -101,7 +102,8 @@ the reason the plan must change.
 4. Apply it as `task-authoring.md` describes, and append the `## Revisions` entry:
    which task was blocked, why, what changed.
 
-Print what changed, the updated order and the next step:
+Print what changed, the updated order and the next steps:
+`/piotrgajow-workflow:commit <slug>` to commit the revised plan, then
 `/piotrgajow-workflow:execute-and-review <next task path>`.
 
 ## Failure output
