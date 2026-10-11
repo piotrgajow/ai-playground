@@ -3,7 +3,7 @@ name: commit
 description: >
   Commit to the feature branch. With a feature slug: commits the uncommitted
   documents of the feature directory (spec, plan, tasks) and, on the first run after
-  `create-spec`, creates the feature branch from the base branch. With a task file:
+  `refine`, creates the feature branch from the base branch. With a task file:
   stages the reviewed task's files, builds the commit message from the config format
   and marks the task committed. Deterministic; no judgement calls.
 argument-hint: [feature slug, or path to task file]
@@ -31,7 +31,7 @@ The feature branch is `git.branch_format` with the feature slug (in task mode, t
 |---|---|
 | You are on the feature branch | Continue. |
 | The branch exists, you are on another one | Ask with `AskUserQuestion`: switch to it (`git checkout <branch>`), or stop. |
-| The branch does not exist, feature mode, you are on `git.base_branch` | Create it from there: `git checkout -b <branch>`. This is the normal start of a feature, right after `create-spec`. |
+| The branch does not exist, feature mode, you are on `git.base_branch` | Create it from there: `git checkout -b <branch>`. This is the normal start of a feature, right after `refine`. |
 | The branch does not exist, feature mode, you are on another branch | Ask with `AskUserQuestion`: create it from `git.base_branch` (`git checkout -b <branch> <base_branch>`), or stop. |
 | The branch does not exist, task mode | Stop: the branch is created by `/piotrgajow-workflow:commit <slug>`, never here. |
 
@@ -41,7 +41,7 @@ Never stash, reset or discard anything to make a checkout work.
 ## Feature mode
 
 1. `<work_dir>/<slug>/spec.md` must exist; otherwise stop and name
-   `/piotrgajow-workflow:create-spec <ticket>`.
+   `/piotrgajow-workflow:refine <ticket>`.
 2. If `work_dir_gitignored` is true there is nothing to commit: report the branch
    state (created, or already on it) and skip to step 6.
 3. List the uncommitted files, modified and untracked, under the feature directory.

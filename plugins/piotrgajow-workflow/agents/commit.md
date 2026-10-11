@@ -6,7 +6,7 @@ description: >
   feature directory (the spec, then the plan and tasks). With a task file: stages the
   reviewed task's files, builds the commit message from the config format and marks
   the task committed. Deterministic; where the commit skill would ask the user, this
-  agent stops with an error. Invoked by the implement-spec command.
+  agent stops with an error. Invoked by the implement command.
 model: haiku
 ---
 
@@ -34,7 +34,7 @@ The feature branch is `git.branch_format` with the feature slug (in task mode, t
 |---|---|
 | You are on the feature branch | Continue. |
 | The branch exists, you are on another one | `git checkout <branch>`. |
-| The branch does not exist, feature mode | `git checkout -b <branch> <git.base_branch>`. This is the normal start of a feature, right after `create-spec`. |
+| The branch does not exist, feature mode | `git checkout -b <branch> <git.base_branch>`. This is the normal start of a feature, right after `refine`. |
 | The branch does not exist, task mode | Stop with an error: the branch is created in feature mode, never here. |
 
 If git refuses a checkout because of local changes, stop with an error quoting its
@@ -43,7 +43,7 @@ message. Never stash, reset, discard or commit anything to make a checkout work.
 ## Feature mode
 
 1. `<work_dir>/<slug>/spec.md` must exist; otherwise stop with an error naming
-   `/piotrgajow-workflow:create-spec <ticket>`.
+   `/piotrgajow-workflow:refine <ticket>`.
 2. If `work_dir_gitignored` is true there is nothing to commit: report
    `nothing-to-commit` with the branch state (see Result).
 3. List the uncommitted files, modified and untracked, under the feature directory.

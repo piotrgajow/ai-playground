@@ -1,7 +1,7 @@
 # Execute → review loop
 
 Shared by the orchestrators that drive a task through the `execute` and `review`
-subagents: `execute-and-review` (one task) and `implement-spec` (every task of a
+subagents: `execute-and-review` (one task) and `implement` (every task of a
 feature). Read it after `lifecycle.md`.
 
 The orchestrator does not implement and does not review. It spawns the

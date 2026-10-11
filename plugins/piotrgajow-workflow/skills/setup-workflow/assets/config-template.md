@@ -23,7 +23,7 @@ retry_limit: 2
 
 Optional free-text guidance per step. Delete sections you do not need.
 
-## create-spec
+## refine
 
 ## plan
 

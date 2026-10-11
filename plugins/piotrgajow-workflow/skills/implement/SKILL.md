@@ -1,5 +1,5 @@
 ---
-name: implement-spec
+name: implement
 description: >
   Implement an approved feature spec end to end in one run: switch to the feature
   branch and commit the spec, plan the feature (unless already planned) and commit
@@ -38,7 +38,7 @@ and then run this command: it sees the existing plan and goes straight to the ta
    `spec.md` → its directory is the feature directory and the slug is the `feature`
    field of its frontmatter. Anything else: stop and say what is accepted.
 2. `spec.md` must exist and be `status: approved`. Otherwise stop and name
-   `/piotrgajow-workflow:create-spec <ticket>` (or `<spec path>` to update it).
+   `/piotrgajow-workflow:refine <ticket>` (or `<spec path>` to update it).
 3. Read the frontmatter of every task file under `tasks/` (there are none before
    planning). If any task is `in-progress`, stop with outcome *error*: an earlier
    execute run was interrupted. A human checks the working tree and sets the status
@@ -69,7 +69,7 @@ resumes it.
 3. If `plan.md` does not exist: the agent ended with `RESULT: spec-problems` → stop
    with outcome *not plannable*; anything else → stop with outcome *error*. In both
    cases relay the agent's whole final message to the user verbatim: it carries the
-   report for `create-spec`.
+   report for `refine`.
 
 ## Phase 4 — Tasks
 
@@ -101,10 +101,10 @@ every task that is not `committed`, and the next step as a full command.
 | Outcome | Next step |
 |---|---|
 | feature implemented | Every task is `committed` on the feature branch. Nothing is pushed; opening a pull request is the human's call. |
-| not plannable | Relay the plan agent's message. `/piotrgajow-workflow:create-spec <pasted report>`, then `/piotrgajow-workflow:implement-spec <slug>` again. |
-| blocked | `/piotrgajow-workflow:plan <task path>` (revise mode); point at the report section that explains the block. Then `/piotrgajow-workflow:implement-spec <slug>` resumes: it commits the revised plan and continues with the tasks. |
-| retry limit reached | A human reads the latest `## Review` section in the task file and decides: fix by hand, raise `retry_limit`, or run `/piotrgajow-workflow:plan <task path>`. Then `/piotrgajow-workflow:implement-spec <slug>` resumes. |
-| error | Quote the subagent's error lines. The human fixes the cause (branch, dirty tree, config, failing verify, unlisted files) and reruns `/piotrgajow-workflow:implement-spec <slug>`. |
+| not plannable | Relay the plan agent's message. `/piotrgajow-workflow:refine <pasted report>`, then `/piotrgajow-workflow:implement <slug>` again. |
+| blocked | `/piotrgajow-workflow:plan <task path>` (revise mode); point at the report section that explains the block. Then `/piotrgajow-workflow:implement <slug>` resumes: it commits the revised plan and continues with the tasks. |
+| retry limit reached | A human reads the latest `## Review` section in the task file and decides: fix by hand, raise `retry_limit`, or run `/piotrgajow-workflow:plan <task path>`. Then `/piotrgajow-workflow:implement <slug>` resumes. |
+| error | Quote the subagent's error lines. The human fixes the cause (branch, dirty tree, config, failing verify, unlisted files) and reruns `/piotrgajow-workflow:implement <slug>`. |
 
 ## Rules
 

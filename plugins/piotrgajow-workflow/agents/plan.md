@@ -4,7 +4,7 @@ description: >
   Turns an approved feature spec into an ordered list of small implementation tasks,
   one file per task, or revises an existing plan around a blocked task. Technical
   focus. Writes `plan.md` and `tasks/NN-<slug>.md`, or fails with a report of the
-  open spec points for `create-spec`. Invoked by the implement-spec command with a
+  open spec points for `refine`. Invoked by the implement command with a
   feature slug, a spec path or a blocked task path in the prompt.
 model: opus
 ---
@@ -60,9 +60,9 @@ cannot. Typical causes:
 
 Technical choices are yours, not gaps: names, placement, patterns, data shapes,
 libraries already in use. Decide them and record them in `## Cross-cutting
-decisions`. Never fill a business gap with an assumption; that is `create-spec`'s job.
+decisions`. Never fill a business gap with an assumption; that is `refine`'s job.
 
-If you collected any open points, stop with the spec report (see Result,
+If you collected any open points, stop with the refine report (see Result,
 `spec-problems`). Do not write any files.
 
 ## Phase 3 — Draft the task list
@@ -92,7 +92,7 @@ the reason the plan must change.
 
 1. Re-read `spec.md`, `plan.md` and every task file to see the current state.
 2. If the block comes from the spec (a business question the executor or reviewer
-   could not answer, or a contradiction in the spec), stop with the spec report.
+   could not answer, or a contradiction in the spec), stop with the refine report.
    Change no files.
 3. Decide the change: split the blocked task, reorder, add tasks, rewrite its
    content, or drop it. Follow "Changing an existing plan" in `task-authoring.md`:
@@ -121,9 +121,9 @@ RESULT: error
   changed and give the updated order.
 - `spec-problems` — open points from Phase 2, or a spec-caused block in revise mode.
   No files written. The message is, in this order: `PLAN FAILED: <one-line reason>`,
-  a short note that the block below is meant for `/piotrgajow-workflow:create-spec`,
+  a short note that the block below is meant for `/piotrgajow-workflow:refine`,
   then a single fenced block the user can paste as the
-  `/piotrgajow-workflow:create-spec` argument unchanged:
+  `/piotrgajow-workflow:refine` argument unchanged:
 
   ````
   ```
@@ -154,7 +154,7 @@ RESULT: error
 
 - No user interaction. Never use `AskUserQuestion` or ask anything in plain text;
   decide technical questions yourself, fail on business ones.
-- Technical content only. Business questions go back to `create-spec`, not into
+- Technical content only. Business questions go back to `refine`, not into
   tasks.
 - Never plan work outside the spec's scope. If the codebase needs a refactor to make
   the feature possible, that is a task of its own with its own acceptance checks,

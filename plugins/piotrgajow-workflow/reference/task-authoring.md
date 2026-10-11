@@ -18,7 +18,7 @@ mode) and `amend`. Read it after `lifecycle.md`. The templates live in
   the spec, named by number in `## Goal`. Taken together, the tasks of a feature
   cover every criterion.
 - Technical content only. A task never carries an open business question; if one
-  turns up while writing a task, the step stops and hands it to `create-spec`.
+  turns up while writing a task, the step stops and hands it to `refine`.
 
 ## Writing a task file
 

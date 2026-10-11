@@ -4,7 +4,7 @@ Every workflow step reads this file first, whether it runs as a skill in the mai
 session or as a subagent. It defines where things live, the file formats, the task
 status machine and the rules that are shared by all steps. Steps that write task
 files (`plan`, `amend`) also read `task-authoring.md`; the orchestrators
-(`execute-and-review`, `implement-spec`) also read `task-loop.md`.
+(`execute-and-review`, `implement`) also read `task-loop.md`.
 
 ## Config
 
@@ -21,7 +21,7 @@ Frontmatter fields:
 |---|---|
 | `work_dir` | Directory (relative to git root) holding feature directories |
 | `work_dir_gitignored` | `true` if `work_dir` is ignored by git; affects what `commit` stages and what `review` diffs |
-| `docs` | List of paths to product/domain documentation (`create-spec` reads these) |
+| `docs` | List of paths to product/domain documentation (`refine` reads these) |
 | `conventions.docs` | List of paths to convention documents that are not loaded ambiently |
 | `conventions.skills` | List of skill names to invoke before changing or reviewing code |
 | `verify` | List of `{ name, command, cwd }` verification commands (lint, typecheck, test, build) |
@@ -32,7 +32,7 @@ Frontmatter fields:
 | `tickets.source` | Where tickets come from: `text`, `github-issues`, `url` or a short description |
 | `retry_limit` | Max re-executions of a task after a failed review before a human must step in |
 
-Body sections (all optional): `## create-spec`, `## plan`, `## execute`, `## review`.
+Body sections (all optional): `## refine`, `## plan`, `## execute`, `## review`.
 A step reads its own section and treats it as additional instructions. `amend` reads
 `## plan`, since it writes tasks the same way.
 
@@ -48,7 +48,7 @@ Conventions a step must apply are the union of:
 
 ```
 <work_dir>/<slug>/
-  spec.md          # written by create-spec
+  spec.md          # written by refine
   plan.md          # written by plan: overview, ordering, cross-cutting decisions
   tasks/
     01-<slug>.md   # one file per task, written by plan
@@ -62,15 +62,15 @@ Nothing else in the repo refers to a task by any other identifier.
 
 Every feature lives on its own branch, `git.branch_format` with the slug, created
 from `git.base_branch`. The branch is created by the first `commit <slug>` run after
-`create-spec` (and again by `commit <slug>` after `amend`, when the merged branch was
-deleted). `implement-spec` runs that same `commit` step first, so it creates the
+`refine` (and again by `commit <slug>` after `amend`, when the merged branch was
+deleted). `implement` runs that same `commit` step first, so it creates the
 branch, or switches to it, when needed. Every later step that touches git
 (`execute`, `commit` in both modes) only checks that it is the current branch and
 stops otherwise. No other step creates, switches or deletes branches.
 
 Commits on the branch, in order:
 
-1. the spec — `commit <slug>` after `create-spec`
+1. the spec — `commit <slug>` after `refine`
 2. the plan and its task files — `commit <slug>` after `plan` (and after every
    `plan` revise or `amend` run)
 3. one commit per task — `commit <task path>` after `execute-and-review`
@@ -145,7 +145,7 @@ a subagent stops and reports an error instead.
 Two orchestrator skills drive them, both reading `task-loop.md`:
 
 - `execute-and-review <task path>` runs the execute → review loop on one task.
-- `implement-spec <slug>` runs the whole feature: `commit` (branch and spec),
+- `implement <slug>` runs the whole feature: `commit` (branch and spec),
   `plan`, `commit` (plan), then for every task the loop followed by `commit`.
 
 `plan` and `commit` also exist as skills for the step-by-step flow; the skill and
@@ -156,7 +156,7 @@ A subagent's final message is for the orchestrator: a few lines at most, the las
 one `RESULT: <status>`. The orchestrator still re-reads the task file after every
 run; the frontmatter is the source of truth, the message only explains it. The one
 exception is `plan` failing on spec problems: its message then carries the full
-report for `create-spec`, which the orchestrator relays to the user.
+report for `refine`, which the orchestrator relays to the user.
 
 ## Shared rules
 

@@ -1,5 +1,5 @@
 ---
-name: create-spec
+name: refine
 description: >
   Turn a ticket or requirement into an approved feature spec through an interview.
   Business focus: scope, out of scope, acceptance criteria. Ends only when nothing is
@@ -10,7 +10,7 @@ disable-model-invocation: true
 ---
 
 Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` first, then load the config. Apply
-the config body section `## create-spec` if present.
+the config body section `## refine` if present.
 
 Ticket: $ARGUMENTS
 
@@ -79,12 +79,12 @@ come back with questions.
 ## Phase 4 — Write
 
 Create `<work_dir>/<slug>/spec.md` from
-`${CLAUDE_PLUGIN_ROOT}/skills/create-spec/assets/spec-template.md`. Every section filled.
+`${CLAUDE_PLUGIN_ROOT}/skills/refine/assets/spec-template.md`. Every section filled.
 Acceptance criteria numbered. Set `status: approved`.
 
 Print the spec path and the next steps: `/piotrgajow-workflow:commit <slug>` (creates
 the feature branch and commits the spec), then `/piotrgajow-workflow:plan <slug>`; or
-`/piotrgajow-workflow:implement-spec <slug>` to run branch, plan and every task in
+`/piotrgajow-workflow:implement <slug>` to run branch, plan and every task in
 one go.
 
 ## Update mode
