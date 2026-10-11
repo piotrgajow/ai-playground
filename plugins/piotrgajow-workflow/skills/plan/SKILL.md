@@ -4,7 +4,7 @@ description: >
   Turn an approved feature spec into an ordered list of small implementation tasks,
   one file per task. Technical focus. Also revises an existing plan when a task was
   blocked. Runs without user interaction: either writes `<work_dir>/<slug>/plan.md`
-  and `tasks/NN-<slug>.md`, or fails with a report to paste into `refine`.
+  and `tasks/NN-<slug>.md`, or fails with a report to paste into `create-spec`.
 argument-hint: [feature slug, or path to a blocked task file]
 disable-model-invocation: true
 ---
@@ -59,9 +59,9 @@ cannot. Typical causes:
 
 Technical choices are yours, not gaps: names, placement, patterns, data shapes,
 libraries already in use. Decide them and record them in `## Cross-cutting
-decisions`. Never fill a business gap with an assumption; that is `refine`'s job.
+decisions`. Never fill a business gap with an assumption; that is `create-spec`'s job.
 
-If you collected any open points, fail with the refine report (see Failure output).
+If you collected any open points, fail with the spec report (see Failure output).
 Do not write any files.
 
 ## Phase 3 — Draft the task list
@@ -84,7 +84,8 @@ point, not something to paper over.
 
 Print the task paths in order, each with its one-line goal, and the next steps:
 `/piotrgajow-workflow:commit <slug>` to commit the plan, then
-`/piotrgajow-workflow:execute-and-review <first task path>`.
+`/piotrgajow-workflow:execute-and-review <first task path>`; or
+`/piotrgajow-workflow:implement-spec <slug>` to commit the plan and run every task.
 
 ## Revise mode
 
@@ -93,7 +94,7 @@ the reason the plan must change.
 
 1. Re-read `spec.md`, `plan.md` and every task file to see the current state.
 2. If the block comes from the spec (a business question the executor or reviewer
-   could not answer, or a contradiction in the spec), fail with the refine report.
+   could not answer, or a contradiction in the spec), fail with the spec report.
    Change no files.
 3. Decide the change: split the blocked task, reorder, add tasks, rewrite its
    content, or drop it. Follow "Changing an existing plan" in `task-authoring.md`:
@@ -117,8 +118,8 @@ PLAN FAILED: <one-line reason>
 followed by one of the two forms below.
 
 **Spec problems** (open points from Phase 2, or a spec-caused block in revise mode):
-print a short note that the block below is meant for `/piotrgajow-workflow:refine`,
-then a single fenced block the user can paste as the `/piotrgajow-workflow:refine`
+print a short note that the block below is meant for `/piotrgajow-workflow:create-spec`,
+then a single fenced block the user can paste as the `/piotrgajow-workflow:create-spec`
 argument unchanged. It must stand on its own, without this chat:
 
 ````
@@ -150,7 +151,7 @@ they must fix by hand.
 
 - No user interaction. Never use `AskUserQuestion` or ask anything in plain text;
   decide technical questions yourself, fail on business ones.
-- Technical content only. Business questions go back to `refine`, not into tasks.
+- Technical content only. Business questions go back to `create-spec`, not into tasks.
 - Never plan work outside the spec's scope. If the codebase needs a refactor to make
   the feature possible, that is a task of its own with its own acceptance checks,
   and it is called out in the overview.

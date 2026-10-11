@@ -27,7 +27,7 @@
     {
       "name": "piotrgajow-workflow",
       "source": "./plugins/piotrgajow-workflow",
-      "description": "Agentic development workflow: refine, plan, execute, review, commit"
+      "description": "Agentic development workflow: create-spec, plan, execute, review, commit, implement-spec"
     }
   ]
 }

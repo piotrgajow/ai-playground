@@ -5,7 +5,7 @@ description: >
   executed: behaviour the spec asks for that the shipped code does not have. Finds
   out with the user where the gap came from (spec, plan or execution), drafts the new
   tasks, confirms them, and writes them. Never edits existing tasks. Hands spec gaps
-  to `refine`.
+  to `create-spec`.
 argument-hint: [feature slug]
 disable-model-invocation: true
 ---
@@ -33,7 +33,7 @@ This step is interactive. Every question with concrete options goes through
 1. The argument is a feature slug or a path to its `spec.md`. Anything else: stop and
    say what is accepted.
 2. `spec.md` exists and is `status: approved`. Otherwise stop and name the step to
-   run (`/piotrgajow-workflow:refine <spec path>`).
+   run (`/piotrgajow-workflow:create-spec <spec path>`).
 3. `plan.md` exists. Otherwise stop: with no plan there is nothing to amend, run
    `/piotrgajow-workflow:plan <slug>`.
 4. Read every task file's frontmatter. Stop if any task is:
@@ -72,7 +72,7 @@ Decide where the gap should have been caught, using the evidence:
 
 | Classification | Meaning |
 |---|---|
-| `spec` | No scope item, rule or acceptance criterion requires the missing behaviour, or the spec is ambiguous about it. `refine` should have asked. |
+| `spec` | No scope item, rule or acceptance criterion requires the missing behaviour, or the spec is ambiguous about it. `create-spec` should have asked. |
 | `plan` | The spec requires it, but no task covers it, or the tasks that claim the criterion do not ask for it in `## Changes`. `plan` should have mapped it. |
 | `execution` | A task asks for it and the code does not do it. `execute` missed it and `review` let it pass; note which review report accepted it. |
 
@@ -87,8 +87,8 @@ the evidence". The user's pick is recorded as the final classification, with you
 original proposal noted if it differs.
 
 **Spec gap:** amend stops here and writes nothing. Print a short note that the block
-below is meant for `/piotrgajow-workflow:refine`, then a single fenced block the
-user can paste as the `/piotrgajow-workflow:refine` argument unchanged, in the same
+below is meant for `/piotrgajow-workflow:create-spec`, then a single fenced block the
+user can paste as the `/piotrgajow-workflow:create-spec` argument unchanged, in the same
 form `plan` uses:
 
 ````
@@ -156,6 +156,6 @@ user that execute expects a clean tree on the feature branch.
 - Never write source code or run verification; the new tasks go through
   `execute-and-review` like any other.
 - Never fill a business gap with an assumption. If the spec does not settle it, it
-  is a spec gap and goes to `refine`.
+  is a spec gap and goes to `create-spec`.
 - Write files only after the draft is confirmed. An abandoned run leaves the feature
   directory exactly as it was.

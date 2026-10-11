@@ -9,61 +9,32 @@ argument-hint: [path to task file]
 disable-model-invocation: true
 ---
 
-Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` first, then load the config.
+Read `${CLAUDE_PLUGIN_ROOT}/reference/lifecycle.md` and
+`${CLAUDE_PLUGIN_ROOT}/reference/task-loop.md` first, then load the config.
 
 Task file: $ARGUMENTS
 
 ## Role
 
-You are the orchestrator. You do not implement and you do not review: the
-`piotrgajow-workflow:execute` and `piotrgajow-workflow:review` subagents do that,
-each in a fresh context, each pinned to its own model. Your job is to call them in
-the right order, read the task file between calls, and stop at the right moment
-with a clear summary. The task file is the only source of truth; a subagent's
-final message is a hint, the frontmatter decides.
+You are the orchestrator for a single task. You do not implement and you do not
+review: the `piotrgajow-workflow:execute` and `piotrgajow-workflow:review` subagents
+do that. Your job is to run the loop from `task-loop.md` on this task and stop at
+the right moment with a clear summary. The task file is the only source of truth; a
+subagent's final message is a hint, the frontmatter decides.
 
-Run the subagents one at a time, in the foreground, and wait for each to finish
-before reading the task file again.
+## Run
 
-## Phase 1 — Starting point
+1. Read the task file frontmatter and pick the starting point as `task-loop.md`
+   says. If the status is not loopable, stop: say which statuses are accepted and
+   what this one means (`done` → run commit; `committed` → nothing to do;
+   `blocked` → run plan in revise mode; `in-progress` → an earlier run was
+   interrupted, a human checks the tree and resets the status).
+2. Run the loop until it reaches an outcome.
 
-Read the task file frontmatter. Decide where to start:
-
-| Status | Start with |
-|---|---|
-| `todo`, `review-failed` | execute |
-| `ready-for-review` | review (a previous execute finished but was not reviewed) |
-| anything else | stop: say which statuses are accepted and what this one means (see Outcomes) |
-
-Note `retry_limit` from the config and `attempts` from the task.
-
-## Phase 2 — Loop
-
-Repeat until an outcome is reached:
-
-1. **Execute** (skip on the first iteration when starting with review):
-   - If `attempts > retry_limit`, stop with outcome *retry limit reached*.
-   - Spawn `piotrgajow-workflow:execute` with the prompt
-     `Task file: <task path>`. Use the agent's default model when `attempts` is
-     `0`; on a retry (`attempts >= 1`) pass `model: opus` to the Agent tool, as the
-     first attempt already showed the task is not trivial.
-   - Re-read the task file frontmatter.
-     - `ready-for-review` → continue to review.
-     - `blocked` → stop with outcome *blocked*.
-     - anything else (`in-progress`, unchanged, or the agent ended with
-       `RESULT: error`) → stop with outcome *error*.
-2. **Review**:
-   - Spawn `piotrgajow-workflow:review` with the prompt `Task file: <task path>`.
-   - Re-read the task file frontmatter.
-     - `done` → stop with outcome *completed*.
-     - `review-failed` → next iteration.
-     - `blocked` → stop with outcome *blocked*.
-     - anything else → stop with outcome *error*.
-
-## Outcomes
+## Outcome
 
 End with a short summary for the user: the outcome, the number of execute attempts
-made in this run, the task's current status, and the next step.
+made in this run, the task's current status, and the next step as a full command:
 
 | Outcome | Next step |
 |---|---|
@@ -74,10 +45,5 @@ made in this run, the task's current status, and the next step.
 
 ## Rules
 
-- Never edit source files, the task file, `spec.md` or `plan.md`. Only subagents
-  write.
-- Never run the verification commands yourself.
-- Never commit; the `commit` step is run separately.
-- Never continue after `blocked` or `error`, and never bypass the retry limit.
-- Do not read source files or diffs to form your own opinion of the work. Status
-  and reports in the task file are all you need.
+The rules in `task-loop.md`, plus: never commit; the `commit` step is run
+separately.
