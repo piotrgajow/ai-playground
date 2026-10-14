@@ -84,7 +84,8 @@ point, not something to paper over.
 
 Print the task paths in order, each with its one-line goal, and the next steps:
 `/piotrgajow-workflow:commit <slug>` to commit the plan, then
-`/piotrgajow-workflow:execute-and-review <first task path>`.
+`/piotrgajow-workflow:execute-and-review <first task path>`; or
+`/piotrgajow-workflow:implement <slug>` to commit the plan and run every task.
 
 ## Revise mode
 

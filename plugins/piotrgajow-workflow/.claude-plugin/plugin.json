@@ -1,6 +1,6 @@
 {
   "name": "piotrgajow-workflow",
-  "description": "Agentic development workflow: refine a requirement, plan tasks, execute, review and commit, one step at a time",
+  "description": "Agentic development workflow: refine a requirement, plan tasks, execute, review and commit, step by step or in one run",
   "author": {
     "name": "Piotr Gajowniczek"
   }

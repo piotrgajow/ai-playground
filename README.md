@@ -38,7 +38,7 @@ To get plugin updates run
 - `.claude-plugin/marketplace.json` - marketplace catalogue
 - `piotrgajow-main` - main plugin for shared skills, hooks, etc.
 - `piotrgajow-sounds-starcraft` - plugin for StarCraft sound notifications
-- `piotrgajow-workflow` - agentic development workflow: refine, plan, execute, review, commit (see its README)
+- `piotrgajow-workflow` - agentic development workflow: refine, plan, execute, review, commit, implement (see its README)
 
 ### Extending the plugins
 

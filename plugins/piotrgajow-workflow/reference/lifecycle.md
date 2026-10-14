@@ -3,7 +3,8 @@
 Every workflow step reads this file first, whether it runs as a skill in the main
 session or as a subagent. It defines where things live, the file formats, the task
 status machine and the rules that are shared by all steps. Steps that write task
-files (`plan`, `amend`) also read `task-authoring.md`.
+files (`plan`, `amend`) also read `task-authoring.md`; the orchestrators
+(`execute-and-review`, `implement`) also read `task-loop.md`.
 
 ## Config
 
@@ -62,9 +63,10 @@ Nothing else in the repo refers to a task by any other identifier.
 Every feature lives on its own branch, `git.branch_format` with the slug, created
 from `git.base_branch`. The branch is created by the first `commit <slug>` run after
 `refine` (and again by `commit <slug>` after `amend`, when the merged branch was
-deleted). Every later step that touches git (`execute`,
-`commit` in both modes) only checks that it is the current branch and stops
-otherwise. No other step creates, switches or deletes branches.
+deleted). `implement` runs that same `commit` step first, so it creates the
+branch, or switches to it, when needed. Every later step that touches git
+(`execute`, `commit` in both modes) only checks that it is the current branch and
+stops otherwise. No other step creates, switches or deletes branches.
 
 Commits on the branch, in order:
 
@@ -134,14 +136,27 @@ spawning it, telling the user to step in.
 
 ## Subagent steps
 
-`execute` and `review` are subagents (`agents/execute.md`, `agents/review.md`),
-driven by the `execute-and-review` skill. They run in a fresh context with only the
-prompt, which names the task file, and they cannot ask the user anything. Where a
-skill would ask, a subagent stops and reports an error instead.
+`execute`, `review`, `plan` and `commit` are subagents (`agents/execute.md`,
+`agents/review.md`, `agents/plan.md`, `agents/commit.md`). They run in a fresh
+context with only the prompt, which names the input (`Task file: <path>` or
+`Feature: <slug>`), and they cannot ask the user anything. Where a skill would ask,
+a subagent stops and reports an error instead.
+
+Two orchestrator skills drive them, both reading `task-loop.md`:
+
+- `execute-and-review <task path>` runs the execute → review loop on one task.
+- `implement <slug>` runs the whole feature: `commit` (branch and spec),
+  `plan`, `commit` (plan), then for every task the loop followed by `commit`.
+
+`plan` and `commit` also exist as skills for the step-by-step flow; the skill and
+the subagent of the same name follow the same procedure, the skill asks where the
+subagent errors.
 
 A subagent's final message is for the orchestrator: a few lines at most, the last
 one `RESULT: <status>`. The orchestrator still re-reads the task file after every
-run; the frontmatter is the source of truth, the message only explains it.
+run; the frontmatter is the source of truth, the message only explains it. The one
+exception is `plan` failing on spec problems: its message then carries the full
+report for `refine`, which the orchestrator relays to the user.
 
 ## Shared rules
 

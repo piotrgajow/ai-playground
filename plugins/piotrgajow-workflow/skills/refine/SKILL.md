@@ -83,7 +83,9 @@ Create `<work_dir>/<slug>/spec.md` from
 Acceptance criteria numbered. Set `status: approved`.
 
 Print the spec path and the next steps: `/piotrgajow-workflow:commit <slug>` (creates
-the feature branch and commits the spec), then `/piotrgajow-workflow:plan <slug>`.
+the feature branch and commits the spec), then `/piotrgajow-workflow:plan <slug>`; or
+`/piotrgajow-workflow:implement <slug>` to run branch, plan and every task in
+one go.
 
 ## Update mode
 
